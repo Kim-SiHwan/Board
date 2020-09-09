@@ -2,6 +2,7 @@ package jpaboard.jpaboard;
 
 
 import jpaboard.jpaboard.RequestDto.BoardRequestDto;
+import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Address;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
@@ -12,6 +13,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,16 +53,26 @@ public class BoardServiceTest {
     }
 
     @Test
-    public void forDataSql (){
+    public void pagingTest (){
     //given
+        //data.sql 더미 데이터  존재 page 초기 값 0. size 초기 값 10
+        PageRequestDto pageRequestDto = new PageRequestDto();
+    //when
+        List<Board> list = boardRepository.findAll(pageRequestDto);
+
+    //then
+        assertEquals(10,list.size());
+        for(int i=0; i<list.size(); i++){
+            System.out.println(list.get(i).getTitle());
+        }
+    }
+
+    @Test
+    public void makeDataSql (){
         for(int i=1; i<=50; i++){
             System.out.println("insert into board (member_id , title, content ,likes , read , create_date ) values (1 , '오이"+i+"T', '오이"+i+"C', 0, 0 ,now() );");
             System.out.println("insert into board (member_id , title, content ,likes , read , create_date ) values (2 , '가지"+i+"T', '가지"+i+"C', 0, 0 ,now() );");
         }
-    //when
-
-    //then
-
     }
 
     public Member createMember(){

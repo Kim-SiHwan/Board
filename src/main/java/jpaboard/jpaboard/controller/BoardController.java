@@ -1,6 +1,7 @@
 package jpaboard.jpaboard.controller;
 
 import jpaboard.jpaboard.RequestDto.BoardRequestDto;
+import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.service.BoardService;
 import jpaboard.jpaboard.service.MemberService;
@@ -26,11 +27,8 @@ public class BoardController {
     private final MemberService memberService;
 
     @GetMapping("/home")
-    public String home(Model model){
-        List<Board> list = boardService.findAll();
-        log.info("asd : "+list.size());
-        log.info("asd:"+list.get(0).getMember().getId());
-        model.addAttribute("list",boardService.findAll());
+    public String home(Model model, PageRequestDto pageRequestDto){
+        model.addAttribute("list",boardService.findAll(pageRequestDto));
         return "/boards/home";
     }
 

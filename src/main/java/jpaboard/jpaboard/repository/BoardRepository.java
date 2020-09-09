@@ -1,10 +1,14 @@
 package jpaboard.jpaboard.repository;
 
+import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -20,9 +24,11 @@ public class BoardRepository {
         return em.find(Board.class,id);
     }
 
-    public List<Board> findAll(){
-        return em.createQuery("select b from Board b",Board.class)
-                .getResultList();
+    public List<Board> findAll(PageRequestDto pageRequestDto){
+        TypedQuery <Board> query = em.createQuery("select b from Board b order by b.id desc",Board.class);
+        query.setFirstResult(pageRequestDto.getPage()*10);
+        query.setMaxResults(pageRequestDto.getSize());
+        return query.getResultList();
     }
 
     public List<Board> findAllByName(String userName){

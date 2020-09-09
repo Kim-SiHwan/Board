@@ -1,6 +1,7 @@
 package jpaboard.jpaboard.service;
 
 import jpaboard.jpaboard.RequestDto.BoardRequestDto;
+import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.repository.BoardRepository;
@@ -26,12 +27,13 @@ public class BoardService {
         return board.getId();
     }
 
+
     public Board findOne(Long id){
         return boardRepository.findOne(id);
     }
 
-    public List<Board> findAll(){
-        return boardRepository.findAll();
+    public List<Board> findAll(PageRequestDto pageRequestDto){
+        return boardRepository.findAll(pageRequestDto);
     }
 
     public List<Board> findAllByName(String userName) {
