@@ -29,21 +29,54 @@
         </table>
 
         <button class="btn btn-outline-primary"><a th:href="@{/boards/new}">글쓰기</a></button>
+
+
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:if="${vo.prevPage}">
+                <a class="page-link" th:href="${vo.tempStartNum}">PREV</a>
+            </li>
+            <li class="page-item" th:each="pageList :${vo.pageList}">
+                <a class="page-link" th:href="${pageList}">[[${pageList}]]</a>
+            </li>
+            <li class="page-item" th:if="${vo.nextPage}">
+                <a class="page-link" th:href="${vo.tempEndNum}">NEXT</a>
+            </li>
+        </ul>
+
+
+
         <form id="form" th:action="@{/boards/view}" method="get"></form>
+
     </div>
 </div>
+
+
+
+
 </body>
+
+
+
+
 <th:block layout:fragment="script">
     <script th:inline=javascript>
         $(document).on("ready",function (e){
-
+            var form = $('#form');
             $(document).on('click','#boardLink',function (e){
-                var form = $('#form');
                 var boardId = $(this).attr('href');
                 form.append("<input type='hidden' name='id' value='"+boardId+"'>");
                 form.submit();
 
-            })
+            });
+
+            $(document).on("click", ".pagination a", function (e) {
+                e.preventDefault();
+                var page = $(this).attr('href');
+                form.attr('action','/boards/home');
+                form.append("<input type='hidden' name='page' value='"+page+"'>");
+                form.submit();
+
+            });
         })
 
 
