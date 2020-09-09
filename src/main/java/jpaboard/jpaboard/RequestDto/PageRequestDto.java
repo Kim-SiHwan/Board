@@ -1,10 +1,9 @@
 package jpaboard.jpaboard.RequestDto;
 
 import lombok.Getter;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 public class PageRequestDto {
     private static final int default_size = 10;
@@ -14,17 +13,18 @@ public class PageRequestDto {
     private int size;
 
     public PageRequestDto(){
-        page=0;
+        page=1;
         size=default_size;
     }
 
     public void setPage ( int page ){
-        this.page = page<0 ? 0 : page;
+        this.page = page<=0 ? 1 : page;
     }
 
     public void setSize( int size ){
         this.size = size<default_size || size>default_max_size ? default_size : size;
     }
+
 
 
 
