@@ -1,0 +1,50 @@
+<html xmlns xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/defaultLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+        <button class="btn btn-outline-danger">asd</button>
+
+        <form id="form" th:action="@{/boards/new}" method="post" th:object="${uploadForm}">
+
+            <select name="memberId" id="member" class="form-control">
+                <option value="">회원선택</option>
+                <option th:each="member : ${memberList}" th:value="${member.id}" th:text="${member.userName}"/>
+            </select>
+
+            <input type="text" class="form-control" placeholder="제목을 입력해주세요." th:field="*{title}">
+            <textarea class="form-control" th:field="*{content}" rows="3" placeholder="내용을 입력해주세요"></textarea>
+            <button type="submit" class="btn btn-outline-primary">작성하기</button>
+
+        </form>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready", function (e) {
+            $(document).on("click", "#submitBtn", function (e) {
+                if ($("#name").val().length === 0) {
+                    alert("아이디를 입력하세요.");
+                    $("#name").focus();
+                    return false;
+                }
+
+            });
+
+
+        });
+
+    </script>
+</th:block>
+
+
+</body>
+</html>
+

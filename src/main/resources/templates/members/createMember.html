@@ -1,0 +1,49 @@
+<html xmlns xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/defaultLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+        <button class="btn btn-outline-danger">asd</button>
+
+        <form id="form" th:action="@{/members/join}" method="post" th:object="${memberForm}">
+            <label th:for="name">이름</label>
+            <input class="form-control" type="text" id="name" th:field="*{userName}" placeholder="이름 입력">
+            <label th:for="city">거주지</label>
+            <input class="form-control" type="text" th:field="*{city}" placeholder="거주지 입력">
+            <label th:for="street">도로명</label>
+            <input class="form-control" type="text" th:field="*{street}" placeholder="도로명 입력">
+            <label th:for="zipcode">우편번호</label>
+            <input class="form-control" type="text" th:field="*{zipcode}" placeholder="우편번호 입력">
+            <button id="submitBtn" type="submit" class="btn btn-outline-primary">btn</button>
+        </form>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready", function (e) {
+            $(document).on("click", "#submitBtn", function (e) {
+                if ($("#name").val().length === 0) {
+                    alert("아이디를 입력하세요.");
+                    $("#name").focus();
+                    return false;
+                }
+
+            });
+
+
+        });
+
+    </script>
+</th:block>
+
+
+</body>
+</html>
+

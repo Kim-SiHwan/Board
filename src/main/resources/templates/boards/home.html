@@ -1,0 +1,52 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/defaultLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+            <th>No</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>조회수</th>
+            <th>추천</th>
+            </thead>
+            <tbody>
+            <tr th:each="list : ${list}">
+                <td>[[${list.id}]]</td>
+                <td>[[${list.member.userName}]]</td>
+                <td id="boardLink" th:href="${list.id}">[[${list.title}]]</td>
+                <td>[[${list.read}]]</td>
+                <td>[[${list.likes}]]</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button class="btn btn-outline-primary"><a th:href="@{/boards/new}">글쓰기</a></button>
+        <form id="form" th:action="@{/boards/view}" method="get"></form>
+    </div>
+</div>
+</body>
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready",function (e){
+
+            $(document).on('click','#boardLink',function (e){
+                var form = $('#form');
+                var boardId = $(this).attr('href');
+                form.append("<input type='hidden' name='id' value='"+boardId+"'>");
+                form.submit();
+
+            })
+        })
+
+
+    </script>
+</th:block>
+</html>
