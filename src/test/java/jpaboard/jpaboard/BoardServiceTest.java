@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +57,7 @@ public class BoardServiceTest {
         PageRequestDto pageRequestDto = new PageRequestDto();
     //when
         List<Board> list = boardRepository.findAll(pageRequestDto);
-
+        int totalPage = boardRepository.countBoard();
     //then
         assertEquals(10,list.size());
         for(int i=0; i<list.size(); i++){

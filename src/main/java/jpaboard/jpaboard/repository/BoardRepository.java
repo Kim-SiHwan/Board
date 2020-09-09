@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -15,6 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardRepository {
     private final EntityManager em;
+
+
+    public int countBoard(){
+        Query query = em.createQuery("select count(b.id) as cnt from Board b");
+        int count = Integer.parseInt(query.getSingleResult().toString());
+        return count;
+    }
 
     public void save(Board board){
         em.persist(board);
@@ -26,7 +34,7 @@ public class BoardRepository {
 
     public List<Board> findAll(PageRequestDto pageRequestDto){
         TypedQuery <Board> query = em.createQuery("select b from Board b order by b.id desc",Board.class);
-        query.setFirstResult(pageRequestDto.getPage()*10);
+        query.setFirstResult((pageRequestDto.getPage()-1)*10);
         query.setMaxResults(pageRequestDto.getSize());
         return query.getResultList();
     }

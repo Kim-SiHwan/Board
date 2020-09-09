@@ -6,6 +6,7 @@ import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.repository.BoardRepository;
 import jpaboard.jpaboard.repository.MemberRepository;
+import jpaboard.jpaboard.vo.PageMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,10 @@ public class BoardService {
         return board.getId();
     }
 
+    public PageMaker makePage(PageRequestDto pageRequestDto){
+        PageMaker pageMaker = new PageMaker(pageRequestDto, boardRepository.countBoard());
+        return pageMaker;
+    }
 
     public Board findOne(Long id){
         return boardRepository.findOne(id);

@@ -5,6 +5,7 @@ import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.service.BoardService;
 import jpaboard.jpaboard.service.MemberService;
+import jpaboard.jpaboard.vo.PageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -29,6 +29,7 @@ public class BoardController {
     @GetMapping("/home")
     public String home(Model model, PageRequestDto pageRequestDto){
         model.addAttribute("list",boardService.findAll(pageRequestDto));
+        model.addAttribute("vo", boardService.makePage(pageRequestDto));
         return "/boards/home";
     }
 
