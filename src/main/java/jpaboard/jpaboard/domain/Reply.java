@@ -34,13 +34,11 @@ public class Reply {
     private Board board;
 
     @Builder(builderClassName = "createReply", builderMethodName = "createReply")
-    public Reply(Long id, String content, LocalDateTime createDate, int likes, Member member, Board board) {
+    public Reply(Long id, String content, LocalDateTime createDate, int likes) {
         this.id = id;
         this.content = content;
         this.createDate = createDate;
         this.likes = likes;
-        this.member = member;
-        this.board = board;
     }
 
     public void changeLikes(int likes){

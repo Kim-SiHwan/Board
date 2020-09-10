@@ -20,10 +20,6 @@ public class ReplyRequestDto {
 
     private int likes;
 
-    private Member member;
-
-    private Board board;
-
     private Long memberId;
 
     private Long boardId;
@@ -33,8 +29,6 @@ public class ReplyRequestDto {
                 .content(replyRequestDto.getContent())
                 .createDate(LocalDateTime.now())
                 .likes(0)
-                .member(null)
-                .board(null)
                 .build();
     }
 

@@ -6,10 +6,12 @@ import jpaboard.jpaboard.domain.Reply;
 import jpaboard.jpaboard.repository.BoardRepository;
 import jpaboard.jpaboard.repository.MemberRepository;
 import jpaboard.jpaboard.repository.ReplyRepository;
+import jpaboard.jpaboard.responseDto.ReplyResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,11 +32,19 @@ public class ReplyService {
         return reply.getId();
     }
 
-    public Reply findOne(Long id){
-        return replyRepository.findOne(id);
+    public ReplyResponseDto findOne(Long id){
+        Reply reply = replyRepository.findOne(id);
+        ReplyResponseDto replyResponseDto = new ReplyResponseDto(reply);
+        return replyResponseDto;
     }
 
-    public List<Reply> findAll(Long boardId){
-        return replyRepository.findAll(boardId);
+    public List<ReplyResponseDto> findAll(Long boardId){
+        List<Reply> replyList = replyRepository.findAll(boardId);
+        List<ReplyResponseDto> replyResponseDtoList = new ArrayList<>();
+        for(int i=0; i< replyList.size(); i++){
+            ReplyResponseDto replyResponseDto = new ReplyResponseDto(replyList.get(i));
+            replyResponseDtoList.add(replyResponseDto);
+        }
+        return replyResponseDtoList;
     }
 }

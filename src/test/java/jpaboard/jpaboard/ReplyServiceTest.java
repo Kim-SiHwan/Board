@@ -4,6 +4,7 @@ import jpaboard.jpaboard.RequestDto.ReplyRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.domain.Reply;
+import jpaboard.jpaboard.responseDto.ReplyResponseDto;
 import jpaboard.jpaboard.service.BoardService;
 import jpaboard.jpaboard.service.MemberService;
 import jpaboard.jpaboard.service.ReplyService;
@@ -33,20 +34,17 @@ public class ReplyServiceTest {
     public void makeReply (){
     //given
         Reply reply = Reply.createReply()
-                .board(null)
-                .member(null)
                 .content("리플")
                 .createDate(LocalDateTime.now())
                 .likes(0)
                 .build();
     //when
         Long replyId = replyService.addReply(reply,1L,200L);
-        Reply getReply = replyService.findOne(replyId);
+        ReplyResponseDto getReply = replyService.findOne(replyId);
     //then
-        assertEquals(reply,getReply);
+        assertEquals(reply.getCreateDate(),getReply.getCreateDate());
         System.out.println(getReply.getContent());
-        System.out.println(getReply.getMember().getUserName());
-        System.out.println(getReply.getBoard().getTitle());
+        System.out.println(getReply.getUserName());
 
     }
 
@@ -55,8 +53,6 @@ public class ReplyServiceTest {
     //given
         for (int i = 0; i < 5; i++) {
             Reply reply = Reply.createReply()
-                    .board(null)
-                    .member(null)
                     .content("리플"+i)
                     .createDate(LocalDateTime.now())
                     .likes(0)

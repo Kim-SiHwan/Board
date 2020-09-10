@@ -2,6 +2,7 @@ package jpaboard.jpaboard.controller;
 
 import jpaboard.jpaboard.RequestDto.ReplyRequestDto;
 import jpaboard.jpaboard.domain.Reply;
+import jpaboard.jpaboard.responseDto.ReplyResponseDto;
 import jpaboard.jpaboard.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ReplyController {
     private final ReplyService replyService;
 
-    private List<Reply> getReplies(Long boardId){
+    private List<ReplyResponseDto> getReplies(Long boardId){
         return replyService.findAll(boardId);
     }
 
