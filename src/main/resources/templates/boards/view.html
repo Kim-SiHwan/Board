@@ -9,10 +9,30 @@
 
 <div layout:fragment="content">
     <div class="panel-body">
-        <p>No : [[${view.id}]]</p>
-        <p>Writer : [[${view.member.userName}]]</p>
+        <div style=" width:1300px;margin: 0 auto">
+            <div style="background-color: red">
+               <b style="color: white; margin-left: 8px">[[${view.title}]]
+                   ([[${#lists.size(view.replies)}]])</b>
+            </div>
+            <div>
+                <p style="display: inline"><span class='badge badge-pill badge-info'>[[${view.member.userName}]]</span></p>
+                <p style="display: inline"><span class='badge badge-pill badge-info float-right'>read : [[${view.read}]]</span></p>
+                <p style="display: inline"><span class='badge badge-pill badge-info float-right'>date : [[${view.createDate}]]</span></p>
+
+            </div>
+                <div class="form-group">
+            <textarea class="form-control" name="content" rows="43" th:text="${view.content}" readonly="readonly"
+                      style="background-color: white"></textarea>
+            </div>
+        </div>
+
+        <div style="background-color: white">
+        댓글존
+        </div>
+
 
     </div>
+</div>
 </div>
 
 

@@ -21,7 +21,8 @@
             <tr th:each="list : ${list}">
                 <td>[[${list.id}]]</td>
                 <td>[[${list.member.userName}]]</td>
-                <td id="boardLink" th:href="${list.id}">[[${list.title}]]</td>
+                <td id="boardLink" th:href="${list.id}">[[${list.title}]]
+                    <small>([[${#lists.size(list.replies)}]])</small></td>
                 <td>[[${list.read}]]</td>
                 <td>[[${list.likes}]]</td>
             </tr>
