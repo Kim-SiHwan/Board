@@ -20,8 +20,9 @@ public class ReplyRepository {
         return em.find(Reply.class,id);
     }
 
-    public List<Reply> findALl(){
-        return em.createQuery("select r from Reply r",Reply.class)
+    public List<Reply> findAll(Long boardId){
+        return em.createQuery("select r from Reply r where r.board.id=:boardId",Reply.class)
+                .setParameter("boardId",boardId)
                 .getResultList();
     }
 }
