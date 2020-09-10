@@ -28,6 +28,11 @@ public class BoardService {
         return board.getId();
     }
 
+    @Transactional
+    public void removeBoard(Long boardId){
+        boardRepository.remove(boardId);
+    }
+
     public PageMaker makePage(PageRequestDto pageRequestDto){
         PageMaker pageMaker = new PageMaker(pageRequestDto, boardRepository.countBoard());
         return pageMaker;

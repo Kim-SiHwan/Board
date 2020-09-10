@@ -28,6 +28,11 @@ public class BoardRepository {
         em.persist(board);
     }
 
+    public void remove(Long id){
+        Board board = em.find(Board.class,id);
+        em.remove(board);
+    }
+
     public Board findOne(Long id){
         return em.find(Board.class,id);
     }

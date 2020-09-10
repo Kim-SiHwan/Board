@@ -55,6 +55,7 @@ public class BoardController {
     @GetMapping("/view")
     public String viewBoard(Model model,Long id){
         boardService.addReadCount(id);
+        model.addAttribute("memberList",memberService.findAll());
         model.addAttribute("view",boardService.findOne(id));
         return "/boards/view";
     }
