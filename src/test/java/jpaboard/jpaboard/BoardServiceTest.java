@@ -40,7 +40,6 @@ public class BoardServiceTest {
         memberService.join(member);
     //when
         Board board = makeBoard();
-        board.setMember(member);
         boardService.upload(board, member.getId());
 
         Board getBoard = boardRepository.findOne(board.getId());
@@ -48,6 +47,21 @@ public class BoardServiceTest {
 
         assertEquals(board,getBoard);
         System.out.println(board.getMember().getUserName());
+    }
+
+    @Test
+    public void removeBoard (){
+    //given
+        Member member = createMember();
+        memberService.join(member);
+        Board board=makeBoard();
+        boardService.upload(board, member.getId());
+    //when
+        System.out.println(board.getTitle());
+        boardService.removeBoard(board.getId());
+    //then
+        System.out.println(board.getTitle());
+
     }
 
     @Test
@@ -75,7 +89,7 @@ public class BoardServiceTest {
 
     public Member createMember(){
         return  Member.createMember()
-                .userName("오이")
+                .userName("오잇")
                 .address(new Address("감자","고구마","가지"))
                 .build();
     }
