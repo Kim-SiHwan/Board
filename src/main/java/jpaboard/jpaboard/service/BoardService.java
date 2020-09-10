@@ -6,11 +6,13 @@ import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.repository.BoardRepository;
 import jpaboard.jpaboard.repository.MemberRepository;
+import jpaboard.jpaboard.responseDto.BoardResponseDto;
 import jpaboard.jpaboard.vo.PageMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,17 +40,22 @@ public class BoardService {
         return pageMaker;
     }
 
-    public Board findOne(Long id){
-        return boardRepository.findOne(id);
+    public BoardResponseDto findOne(Long id){
+        Board board = boardRepository.findOne(id);
+        BoardResponseDto responseDto = new BoardResponseDto(board);
+        return responseDto;
     }
 
-    public List<Board> findAll(PageRequestDto pageRequestDto){
-        return boardRepository.findAll(pageRequestDto);
+    public List<BoardResponseDto> findAll(PageRequestDto pageRequestDto){
+        List<Board> list = boardRepository.findAll(pageRequestDto);
+        List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            BoardResponseDto boardResponseDto = new BoardResponseDto(list.get(i));
+            boardResponseDtoList.add(boardResponseDto);
+        }
+        return boardResponseDtoList;
     }
 
-    public List<Board> findAllByName(String userName) {
-        return boardRepository.findAllByName(userName);
-    }
 
     @Transactional
     public void addReadCount(Long id) {

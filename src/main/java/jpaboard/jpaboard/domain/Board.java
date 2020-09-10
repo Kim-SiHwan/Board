@@ -46,13 +46,12 @@ public class Board {
     }
 
     @Builder(builderClassName = "makeBoard", builderMethodName = "makeBoard")
-    public Board(Long id, String title, String content, LocalDateTime createDate, int likes, int read, Member member) {
+    public Board(Long id, String title, String content, LocalDateTime createDate, int likes, int read) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
         this.likes = likes;
         this.read = read;
-        this.member = member;
     }
 }

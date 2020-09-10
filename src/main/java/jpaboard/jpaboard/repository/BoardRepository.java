@@ -43,10 +43,4 @@ public class BoardRepository {
         query.setMaxResults(pageRequestDto.getSize());
         return query.getResultList();
     }
-
-    public List<Board> findAllByName(String userName){
-        return em.createQuery("select b from Board b where b.member.userName=:userName",Board.class)
-                .setParameter("userName",userName)
-                .getResultList();
-    }
 }

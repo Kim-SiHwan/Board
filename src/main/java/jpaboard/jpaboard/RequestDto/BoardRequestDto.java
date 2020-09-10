@@ -32,8 +32,6 @@ public class BoardRequestDto {
 
     private int read;
 
-    private Member member;
-
     private Long memberId;
 
     private List<Reply> replies = new ArrayList<>();
@@ -45,7 +43,6 @@ public class BoardRequestDto {
                 .createDate(LocalDateTime.now())
                 .likes(0)
                 .read(0)
-                .member(null)
                 .build();
     }
 
