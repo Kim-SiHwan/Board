@@ -12,13 +12,12 @@
         <div style=" width:1300px;margin: 0 auto">
             <div style="background-color: red">
                 <b style="color: white; margin-left: 8px">[[${view.title}]]
-                    ([[${#lists.size(view.replies)}]])</b>
+                    ([[${view.replyCount}]])</b>
             </div>
             <div>
-                <p style="display: inline"><span class='badge badge-pill badge-info'>[[${view.member.userName}]]</span>
+                <p style="display: inline"><span class='badge badge-pill badge-info'>[[${view.userName}]]</span>
                 </p>
-                <p style="display: inline"><span
-                        class='badge badge-pill badge-info float-right'>read : [[${view.read}]]</span></p>
+                <p style="display: inline"><span class='badge badge-pill badge-info float-right'>read : [[${view.read}]]</span></p>
                 <p style="display: inline"><span class='badge badge-pill badge-info float-right'>date : [[${view.createDate}]]</span>
                 </p>
 
@@ -75,7 +74,7 @@
                     console.log("list : " + replyList.content);
 
                     var str;
-                    str += "<tr>" +
+                    str += "<tr>" +"<td width='50'><span class='badge badge-pill badge-info'>"+replyList.userName+"</span></td>"+
                         "<td width='250'>" + replyList.content + "</td></tr>";
                 }
                 $("#ReplyTable").html(str);
