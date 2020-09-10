@@ -11,30 +11,95 @@
     <div class="panel-body">
         <div style=" width:1300px;margin: 0 auto">
             <div style="background-color: red">
-               <b style="color: white; margin-left: 8px">[[${view.title}]]
-                   ([[${#lists.size(view.replies)}]])</b>
+                <b style="color: white; margin-left: 8px">[[${view.title}]]
+                    ([[${#lists.size(view.replies)}]])</b>
             </div>
             <div>
-                <p style="display: inline"><span class='badge badge-pill badge-info'>[[${view.member.userName}]]</span></p>
-                <p style="display: inline"><span class='badge badge-pill badge-info float-right'>read : [[${view.read}]]</span></p>
-                <p style="display: inline"><span class='badge badge-pill badge-info float-right'>date : [[${view.createDate}]]</span></p>
+                <p style="display: inline"><span class='badge badge-pill badge-info'>[[${view.member.userName}]]</span>
+                </p>
+                <p style="display: inline"><span
+                        class='badge badge-pill badge-info float-right'>read : [[${view.read}]]</span></p>
+                <p style="display: inline"><span class='badge badge-pill badge-info float-right'>date : [[${view.createDate}]]</span>
+                </p>
 
             </div>
-                <div class="form-group">
+            <div class="form-group">
             <textarea class="form-control" name="content" rows="43" th:text="${view.content}" readonly="readonly"
                       style="background-color: white"></textarea>
             </div>
+
+            <div style="background-color: white">
+                댓글존
+                <table class="table table-hover">
+                    <tbody id="ReplyTable">
+                    </tbody>
+                </table>
+            </div>
+            <p>댓글 작성</p>
+            <select name="memberId" id="member" class="form-control">
+                <option value="">회원선택</option>
+                <option th:each="member : ${memberList}" th:value="${member.id}" th:text="${member.userName}"/>
+            </select>
+            <div>
+                <textarea rows="3" cols="30" class="form-control" id="inputReply"
+                          style="width: 95%;display: inline"></textarea>
+                <button class="btn btn-primary btn-sm float-right btn-sm" id="addReply"
+                        style="display: inline; width: 71px;height: 85px; ">작성
+                </button>
+            </div>
+
         </div>
-
-        <div style="background-color: white">
-        댓글존
-        </div>
-
-
     </div>
 </div>
 </div>
 
 
 </body>
+
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript" th:src="@{'/js/reply.js'}"></script>
+    <script th:inline=javascript>
+        $(document).on("ready", function (e) {
+
+            replyManager.getAll([[${view.id}]], printList);
+
+            function printList(listFromController) {
+                var str = "";
+                for (var i = 0; i < listFromController.length; i++) {
+
+                    var replyList = listFromController[i];
+                    console.log("list : " + replyList);
+                    console.log("list : " + replyList.createDate);
+                    console.log("list : " + replyList.likes);
+                    console.log("list : " + replyList.content);
+
+                    var str;
+                    str += "<tr>" +
+                        "<td width='250'>" + replyList.content + "</td></tr>";
+                }
+                $("#ReplyTable").html(str);
+                console.log("str:" + str);
+
+
+            }
+
+            var obj;
+            $(document).on("click", "#addReply", function (e) {
+                var send_reply_text = $("#inputReply").val();
+                var send_replier = $("#member").val();
+                var id = [[${view.id}]];
+                console.log(id);
+                obj = {boardId: id, content: send_reply_text, memberId: send_replier};
+                replyManager.add(obj, printList);
+
+                console.log(send_replier + " " + send_reply_text);
+                $("#inputReply").val("");
+
+            });
+        })
+
+
+    </script>
+</th:block>
 </html>
