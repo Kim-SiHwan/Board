@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -48,7 +49,6 @@ public class BoardController {
             return "/boards/uploadBoard";
         }
         Board board = boardRequestDto.toEntity(boardRequestDto);
-        log.info("asd:"+boardRequestDto.getMemberId());
         boardService.upload(board, boardRequestDto.getMemberId());
         return "redirect:/boards/home";
     }
@@ -59,6 +59,13 @@ public class BoardController {
         model.addAttribute("memberList",memberService.findAll());
         model.addAttribute("view",boardService.findOne(id));
         return "/boards/view";
+    }
+
+    @ResponseBody
+    @PostMapping("/like")
+    public String addLike(Long memberId, Long boardId){
+
+        return"/boards/view";
     }
 
 

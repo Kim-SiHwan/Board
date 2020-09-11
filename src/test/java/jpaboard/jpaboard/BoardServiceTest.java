@@ -91,12 +91,12 @@ public class BoardServiceTest {
         return  Member.createMember()
                 .userName("오잇")
                 .address(new Address("감자","고구마","가지"))
+                .role("USER")
                 .build();
     }
 
     public Board makeBoard(){
         return Board.makeBoard()
-                .member(null)
                 .likes(0)
                 .read(0)
                 .title("오이T")
