@@ -1,0 +1,83 @@
+package jpaboard.jpaboard.config;
+
+import jpaboard.jpaboard.domain.Address;
+import jpaboard.jpaboard.domain.Board;
+import jpaboard.jpaboard.domain.Member;
+import jpaboard.jpaboard.domain.Reply;
+import jpaboard.jpaboard.service.BoardService;
+import jpaboard.jpaboard.service.MemberService;
+import jpaboard.jpaboard.service.ReplyService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class AppRunnerConfig implements ApplicationRunner {
+
+    private final PasswordEncoder pwEncoder;
+    private final MemberService memberService;
+    private final BoardService boardService;
+    private final ReplyService replyService;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception
+    {
+        Member member1=Member.createMember()
+                .userName("오이")
+                .passWord(pwEncoder.encode("123"))
+                .address(new Address("감자","토마토","양배추"))
+                .joinDate(LocalDateTime.now())
+                .role("USER")
+                .build();
+        memberService.join(member1);
+
+        Member member2=Member.createMember()
+                .userName("배추")
+                .passWord(pwEncoder.encode("123"))
+                .address(new Address("감자","양상추","고구마"))
+                .joinDate(LocalDateTime.now())
+                .role("USER")
+                .build();
+        memberService.join(member2);
+
+        Member member=Member.createMember()
+                .userName("관리자")
+                .passWord(pwEncoder.encode("123"))
+                .address(new Address("인천","남동","아파트"))
+                .joinDate(LocalDateTime.now())
+                .role("ADMIN")
+                .build();
+        memberService.join(member);
+        Long memberId = 1L;
+
+        for(int i=1; i<=50; i++) {
+            memberId = memberId ==1L ? 2L : 1L;
+            Board board = Board.makeBoard()
+                    .title("Title" + i)
+                    .content("Content" + i)
+                    .createDate(LocalDateTime.now())
+                    .read(0)
+                    .likes(0)
+                    .build();
+            boardService.upload(board, memberId);
+
+            for (int j = 1; j <= 10; j++) {
+                memberId = memberId ==1L ? 2L : 1L;
+                Reply reply = Reply.createReply()
+                        .content("Reply" + j)
+                        .createDate(LocalDateTime.now())
+                        .likes(0)
+                        .build();
+                replyService.addReply(reply, memberId, board.getId());
+            }
+        }
+
+    }
+}
