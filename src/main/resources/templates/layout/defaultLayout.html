@@ -11,8 +11,13 @@
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="@{/css/normalize.css}">
-    <link rel="stylesheet" href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/defaultLayout.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/upload.css}">
+    <link rel="stylesheet" th:href="@{/css/view.css}">
+
+    <!-- icon -->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
     <script src="js/vendor/modernizr-3.8.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -29,9 +34,21 @@
 </head>
 
 <body>
-<div layout:fragment="header">
-    <h4><a id="homeLink" th:href="@{/boards/home}">Board</a></h4>
-    <hr>
+<div layout:fragment="header" id="header">
+    <h4 id="h4"><a id="homeLink" th:href="@{/boards/home}">Board</a></h4>
+    <ul id="boardMenu">
+        <li>게시판
+            <ul id="boardSubMenu">
+                <li>
+                    <a>게시판</a>
+                </li>
+                <li>
+                    <a>인기게시판</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
 </div>
 
 

@@ -9,63 +9,62 @@
 
 <div layout:fragment="content">
     <div class="panel-body">
-        <table class="table table-hover">
-            <thead>
-            <th>No</th>
-            <th>작성자</th>
-            <th>제목</th>
-            <th>조회수</th>
-            <th>추천</th>
-            </thead>
-            <tbody>
-            <tr th:each="list : ${list}">
-                <td>[[${list.id}]]</td>
-                <td>[[${list.userName}]]</td>
-                <td id="boardLink" th:href="${list.id}">[[${list.title}]]
-                    <small>([[${list.replyCount}]])</small></td>
-                <td>[[${list.read}]]</td>
-                <td>[[${list.likes}]]</td>
-            </tr>
-            </tbody>
-        </table>
+        <div style=" width:1300px;margin: 0 auto">
+            <table class="table table-hover">
+                <thead>
+                <th width="20">No</th>
+                <th width="200">작성자</th>
+                <th>제목</th>
+                <th width="100">조회수</th>
+                <th width="70">추천</th>
+                </thead>
+                <tbody>
+                <tr th:each="list : ${list}">
+                    <td><small>[[${list.id}]]</small></td>
+                    <td id="writer">[[${list.userName}]]</td>
+                    <td id="boardLink" th:href="${list.id}">
+                        [[${list.title}]]
+                        <small>([[${list.replyCount}]])</small>
+                    </td>
+                    <td>[[${list.read}]]</td>
+                    <td>[[${list.likes}]]</td>
+                </tr>
+                </tbody>
+            </table>
 
-        <button class="btn btn-outline-primary"><a th:href="@{/boards/new}">글쓰기</a></button>
-
-
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:if="${vo.prevPage}">
-                <a class="page-link" th:href="${vo.tempStartNum}">PREV</a>
-            </li>
-            <li class="page-item" th:each="pageList :${vo.pageList}">
-                <a class="page-link" th:href="${pageList}">[[${pageList}]]</a>
-            </li>
-            <li class="page-item" th:if="${vo.nextPage}">
-                <a class="page-link" th:href="${vo.tempEndNum}">NEXT</a>
-            </li>
-        </ul>
+            <button class="btn btn-outline-primary"><a th:href="@{/boards/new}">글쓰기</a></button>
 
 
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${vo.prevPage}">
+                    <a class="page-link" th:href="${vo.tempStartNum}">PREV</a>
+                </li>
+                <li class="page-item" th:each="pageList :${vo.pageList}">
+                    <a class="page-link" th:href="${pageList}">[[${pageList}]]</a>
+                </li>
+                <li class="page-item" th:if="${vo.nextPage}">
+                    <a class="page-link" th:href="${vo.tempEndNum}">NEXT</a>
+                </li>
+            </ul>
 
-        <form id="form" th:action="@{/boards/view}" method="get"></form>
 
+            <form id="form" th:action="@{/boards/view}" method="get"></form>
+
+        </div>
     </div>
 </div>
-
-
 
 
 </body>
 
 
-
-
 <th:block layout:fragment="script">
     <script th:inline=javascript>
-        $(document).on("ready",function (e){
+        $(document).on("ready", function (e) {
             var form = $('#form');
-            $(document).on('click','#boardLink',function (e){
+            $(document).on('click', '#boardLink', function (e) {
                 var boardId = $(this).attr('href');
-                form.append("<input type='hidden' name='id' value='"+boardId+"'>");
+                form.append("<input type='hidden' name='id' value='" + boardId + "'>");
                 form.submit();
 
             });
@@ -73,8 +72,8 @@
             $(document).on("click", ".pagination a", function (e) {
                 e.preventDefault();
                 var page = $(this).attr('href');
-                form.attr('action','/boards/home');
-                form.append("<input type='hidden' name='page' value='"+page+"'>");
+                form.attr('action', '/boards/home');4
+                form.append("<input type='hidden' name='page' value='" + page + "'>");
                 form.submit();
 
             });

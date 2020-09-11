@@ -20,7 +20,7 @@
 
             <input type="text" class="form-control" placeholder="제목을 입력해주세요." th:field="*{title}">
             <textarea class="form-control" th:field="*{content}" rows="3" placeholder="내용을 입력해주세요"></textarea>
-            <button type="submit" class="btn btn-outline-primary">작성하기</button>
+            <button id="submitBtn" type="submit" class="btn btn-outline-primary">작성하기</button>
 
         </form>
     </div>
@@ -30,9 +30,14 @@
     <script th:inline=javascript>
         $(document).on("ready", function (e) {
             $(document).on("click", "#submitBtn", function (e) {
-                if ($("#name").val().length === 0) {
-                    alert("아이디를 입력하세요.");
-                    $("#name").focus();
+                if($('#title').val().length === 0){
+                    alert("제목을 입력하세요.");
+                    $('#title').focus();
+                    return false;
+                }
+                if($('#content').val().length <=1){
+                    alert("본문을 2자 이상 작성하세요.");
+                    $('#content').focus();
                     return false;
                 }
 
