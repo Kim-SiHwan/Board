@@ -27,6 +27,7 @@ public class MemberServiceTest {
         Member member= Member.createMember()
                 .userName("오이")
                 .address(new Address("감자","고구마","가지"))
+                .role("USER")
                 .build();
         memberService.join(member);
     //when
@@ -40,9 +41,11 @@ public class MemberServiceTest {
     //given
         Member member = Member.createMember()
                 .userName("오이")
+                .role("USER")
                 .build();
         Member member1 = Member.createMember()
                 .userName("오이")
+                .role("USER")
                 .build();
     //when
         memberService.join(member);
@@ -58,6 +61,7 @@ public class MemberServiceTest {
             Member member = Member.createMember()
                     .userName("오이"+i)
                     .address(new Address("감자"+i,"고구마"+i,"가지"+i))
+                    .role("USER")
                     .build();
             memberService.join(member);
         }
