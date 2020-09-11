@@ -43,6 +43,7 @@ public class BoardController {
     @PostMapping("/new")
     public String upload(Model model, @Valid BoardRequestDto boardRequestDto, BindingResult result){
         if(result.hasErrors()){
+            model.addAttribute("memberList",memberService.findAll());
             model.addAttribute("uploadForm",boardRequestDto);
             return "/boards/uploadBoard";
         }

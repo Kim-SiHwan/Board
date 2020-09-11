@@ -41,10 +41,12 @@ public class ReplyService {
     public List<ReplyResponseDto> findAll(Long boardId){
         List<Reply> replyList = replyRepository.findAll(boardId);
         List<ReplyResponseDto> replyResponseDtoList = new ArrayList<>();
-        for(int i=0; i< replyList.size(); i++){
-            ReplyResponseDto replyResponseDto = new ReplyResponseDto(replyList.get(i));
+
+        replyList.stream().forEach(reply -> {
+            ReplyResponseDto replyResponseDto = new ReplyResponseDto(reply);
             replyResponseDtoList.add(replyResponseDto);
-        }
+        });
+
         return replyResponseDtoList;
     }
 }

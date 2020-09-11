@@ -47,12 +47,14 @@ public class BoardService {
     }
 
     public List<BoardResponseDto> findAll(PageRequestDto pageRequestDto){
-        List<Board> list = boardRepository.findAll(pageRequestDto);
+        List<Board> boardList = boardRepository.findAll(pageRequestDto);
         List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
-        for(int i=0; i<list.size(); i++) {
-            BoardResponseDto boardResponseDto = new BoardResponseDto(list.get(i));
+
+        boardList.stream().forEach(board -> {
+            BoardResponseDto boardResponseDto = new BoardResponseDto(board);
             boardResponseDtoList.add(boardResponseDto);
-        }
+        });
+
         return boardResponseDtoList;
     }
 
