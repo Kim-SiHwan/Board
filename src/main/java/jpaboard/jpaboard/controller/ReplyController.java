@@ -30,11 +30,6 @@ public class ReplyController {
     @PostMapping("/{boardId}")
     public ResponseEntity addReply(@PathVariable("boardId") Long boardId,
                                    @RequestBody ReplyRequestDto replyRequestDto){
-        log.info("zzz:"+boardId);
-        log.info("zzz:"+replyRequestDto.getContent());
-        log.info("zzz:"+replyRequestDto.getMemberId());
-        log.info("zzz:"+replyRequestDto.getBoardId());
-
         replyService.addReply(replyRequestDto.toEntity(replyRequestDto), replyRequestDto.getMemberId(), replyRequestDto.getBoardId());
         return new ResponseEntity<>(getReplies(boardId),HttpStatus.CREATED);
     }

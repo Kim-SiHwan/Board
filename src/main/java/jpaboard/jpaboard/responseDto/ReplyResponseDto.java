@@ -18,6 +18,6 @@ public class ReplyResponseDto {
         this.userName=reply.getMember().getUserName();
         this.content= reply.getContent();
         this.likes= reply.getLikes();
-        this.createDate=getCreateDate();
+        this.createDate=reply.getCreateDate();
     }
 }

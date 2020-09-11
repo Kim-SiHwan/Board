@@ -60,7 +60,7 @@ public class ReplyServiceTest {
             replyService.addReply(reply,1L,200L);
         }
     //when
-        List<Reply> list = replyService.findAll(200L);
+        List<ReplyResponseDto> list = replyService.findAll(200L);
     //then
         assertEquals(5,list.size());
 
