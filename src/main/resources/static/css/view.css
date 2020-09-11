@@ -1,0 +1,58 @@
+#mainDiv {
+    width: 1300px;
+    margin: 0 auto;
+}
+
+#boardHeadDiv{
+    background-color: darkseagreen;
+}
+
+#boardInfoDiv > p{
+    display: inline;
+}
+
+#content{
+    background-color: white;
+}
+#thumbs{
+    margin-left: 450px;
+}
+
+#thumbs-down{
+    margin-left: 250px;
+}
+
+#thumbs-up , #thumbs-down{
+    display: inline-block;
+    cursor: pointer;
+}
+
+#thumbs-up > i , #thumbs-down > i , #commentsIcon{
+    font-size:36px;
+}
+
+#replierDiv{
+}
+
+#replierDiv > p{
+    margin-left: 15px;
+}
+
+#replyContentDiv{
+    margin-top: -17px;
+}
+
+#replyDown{
+    margin-left: 1000px;
+    cursor: pointer;
+}
+#replyUp{
+    position: absolute;
+    margin-left: 960px;
+    margin-top: 3px;
+    cursor:pointer;
+}
+
+
+
+

@@ -1,0 +1,69 @@
+#header{
+    height: 70px;
+    background-color: lightslategrey;
+}
+
+#homeLink{
+    text-decoration: none;
+    color: white;
+    margin-left: 250px;
+    font-size: 50px;
+    font-family: fantasy;
+}
+
+#h4{
+    display: inline;
+}
+
+#boardMenu {
+    display: inline-block;
+    position: absolute;
+    cursor: pointer;
+    color: ghostwhite;
+}
+
+#boardMenu > li{
+    margin-top: -10px;
+    margin-left: 130px;
+}
+
+#boardMenu , #boardSubMenu{
+    list-style-type: none;
+    margin: 0;
+    padding:0;
+}
+
+#boardSubMenu {
+    padding: 4px 10px;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+
+}
+
+#boardMenu >li {
+    float:left;
+    padding: 30px 70px;
+    border: 5px red;
+
+}
+
+#boardSubMenu >li> a {
+    text-decoration: none;
+    cursor: pointer;
+    color:black;
+}
+
+#boardSubMenu >li>a:hover{
+    color:blue;
+}
+
+ul :hover  #boardSubMenu {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+    margin-top: 26px;
+    background-color: white;
+    border: 5px solid antiquewhite;
+
+}
