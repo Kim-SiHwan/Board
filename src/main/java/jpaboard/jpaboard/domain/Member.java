@@ -27,7 +27,7 @@ public class Member {
 
     private String role;
 
-    private String passWord;
+    private String password;
 
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
@@ -36,12 +36,12 @@ public class Member {
     private List<Reply> replies = new ArrayList<>();
 
     @Builder(builderClassName = "createMember", builderMethodName = "createMember")
-    public Member(Long id, String userName, Address address, LocalDateTime joinDate, String role, String passWord) {
+    public Member(Long id, String userName, Address address, LocalDateTime joinDate, String role, String password) {
         this.id = id;
         this.userName = userName;
         this.address = address;
         this.joinDate = joinDate;
         this.role = role;
-        this.passWord = passWord;
+        this.password = password;
     }
 }
