@@ -10,14 +10,14 @@ public class ReplyResponseDto {
     private Long id;
     private String userName;
     private String content;
-    private int likes;
     private LocalDateTime createDate;
+    private int replyLikeCount;
 
     public ReplyResponseDto(Reply reply){
         this.id= reply.getId();
         this.userName=reply.getMember().getUserName();
         this.content= reply.getContent();
-        this.likes= reply.getLikes();
         this.createDate=reply.getCreateDate();
+        this.replyLikeCount=reply.getReplyLikes().size();
     }
 }

@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,8 +23,6 @@ public class Reply {
 
     private LocalDateTime createDate;
 
-    private int likes;
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -33,16 +33,15 @@ public class Reply {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @OneToMany(mappedBy = "reply", cascade = CascadeType.REMOVE)
+    private List<ReplyLike> replyLikes = new ArrayList<>();
+
+
     @Builder(builderClassName = "createReply", builderMethodName = "createReply")
-    public Reply(Long id, String content, LocalDateTime createDate, int likes) {
+    public Reply(Long id, String content, LocalDateTime createDate) {
         this.id = id;
         this.content = content;
         this.createDate = createDate;
-        this.likes = likes;
-    }
-
-    public void changeLikes(int likes){
-        this.likes+=likes;
     }
 
     public void setMember(Member member){

@@ -64,7 +64,6 @@ public class AppRunnerConfig implements ApplicationRunner {
                     .content("Content" + i)
                     .createDate(LocalDateTime.now())
                     .read(0)
-                    .likes(0)
                     .build();
             boardService.upload(board, memberId);
 
@@ -73,7 +72,6 @@ public class AppRunnerConfig implements ApplicationRunner {
                 Reply reply = Reply.createReply()
                         .content("Reply" + j)
                         .createDate(LocalDateTime.now())
-                        .likes(0)
                         .build();
                 replyService.addReply(reply, memberId, board.getId());
             }

@@ -6,15 +6,9 @@ var replyManager = (function () {
       dataType: 'json',
       success: callback
     });
-    console.log("obj: "+obj);
-    console.log("callback :" +callback);
-
-
   };
 
   var add = function (obj, callback) {
-
-    console.log(obj);
     $.ajax({
       type: 'post',
       url: '/replies/' + obj.boardId,
@@ -22,6 +16,7 @@ var replyManager = (function () {
       contentType: "application/json",
       dataType: 'json',
       success: callback
+
     });
 
   };

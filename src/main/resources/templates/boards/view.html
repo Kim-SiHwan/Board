@@ -25,10 +25,7 @@
             </div>
             <div id="thumbs">
                 <div id="thumbs-up">
-                    <i id="thumbs-up-icon" class='far fa-thumbs-up'></i><small><p>추천</p></small>
-                </div>
-                <div id="thumbs-down">
-                    <i class='far fa-thumbs-down'></i><small><p>비추천</p></small>
+                    <i id="thumbs-up-icon" class='far fa-thumbs-up'></i><small><p>추천<small>[[${view.boardLikeCount}]]</small></p></small>
                 </div>
             </div>
 
@@ -38,7 +35,7 @@
 
             <p>댓글 작성</p>
             <select name="memberId" id="member" class="form-control">
-                <option value="">회원선택</option>
+                <option>회원선택</option>
                 <option th:each="member : ${memberList}" th:value="${member.id}" th:text="${member.userName}"/>
             </select>
             <div>
@@ -74,8 +71,7 @@
                     str +=
                         "<div id='replierDiv'><p style='display: inline-block'><b><span class='badge badge-primary'>"+replyList.userName+"</span></b></p>" +
                         "<span class='badge badge-primary float-right'>"+replyList.createDate+"</span>" +
-                        "<i class='far fa-thumbs-up' id='replyUp'>0</i>" +
-                        "<i class='far fa-thumbs-down' id='replyDown'></i>" +
+                        "<i class='far fa-thumbs-up' id='replyUp' href='" + replyList.id + "' >"+replyList.replyLikeCount+"</i>" +
                         "</div>"+
                         "<div id='replyContentDiv'><textarea id='replyContent' rows='2' class='form-control' readonly = readonly>"+replyList.content+"</textarea></div><br>";
                 }
@@ -95,9 +91,17 @@
             $(document).on('click','#thumbs-up-icon',function (e){
                 var memberId = $("#member").val();
                 var boardId = [[${view.id}]];
-                obj = {memberId : memberId , boardId : boardId};
+                obj = {memberId : memberId , id : boardId , type :"board"};
                 likeManager.add(obj);
             });
+
+            $(document).on('click','#replyUp',function (e){
+                var memberId = $("#member").val();
+                var replyId = $(this).attr('href');
+                obj = {memberId : memberId, id : replyId , type :"reply"};
+                likeManager.add(obj);
+            });
+
         })
 
 

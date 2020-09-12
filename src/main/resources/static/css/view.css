@@ -18,16 +18,13 @@
     margin-left: 450px;
 }
 
-#thumbs-down{
-    margin-left: 250px;
-}
 
-#thumbs-up , #thumbs-down{
+#thumbs-up{
     display: inline-block;
     cursor: pointer;
 }
 
-#thumbs-up > i , #thumbs-down > i , #commentsIcon{
+#thumbs-up > i , #commentsIcon{
     font-size:36px;
 }
 
@@ -42,10 +39,6 @@
     margin-top: -17px;
 }
 
-#replyDown{
-    margin-left: 1000px;
-    cursor: pointer;
-}
 #replyUp{
     position: absolute;
     margin-left: 960px;
