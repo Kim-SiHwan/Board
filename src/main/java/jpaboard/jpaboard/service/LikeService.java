@@ -17,7 +17,8 @@ public class LikeService {
     private final ReplyRepository replyRepository;
 
     @Transactional
-    public String addLike(Long memberId, Long id, String type) {
+    public String addLike(String userName, Long id, String type) {
+        Long memberId = memberRepository.getIdByName(userName);
         Member member = memberRepository.findOne(memberId);
         String msg = "";
         if (!checkBefore(memberId, id, type)) {
