@@ -1,8 +1,5 @@
 package jpaboard.jpaboard;
 
-import jpaboard.jpaboard.RequestDto.ReplyRequestDto;
-import jpaboard.jpaboard.domain.Board;
-import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.domain.Reply;
 import jpaboard.jpaboard.responseDto.ReplyResponseDto;
 import jpaboard.jpaboard.service.BoardService;
@@ -14,10 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,10 +34,9 @@ public class ReplyServiceTest {
         Reply reply = Reply.createReply()
                 .content("리플")
                 .createDate(LocalDateTime.now())
-                .likes(0)
                 .build();
     //when
-        Long replyId = replyService.addReply(reply,1L,200L);
+        Long replyId = replyService.addReply(reply,"관리자",200L);
         ReplyResponseDto getReply = replyService.findOne(replyId);
     //then
         assertEquals(reply.getCreateDate(),getReply.getCreateDate());
@@ -55,9 +52,8 @@ public class ReplyServiceTest {
             Reply reply = Reply.createReply()
                     .content("리플"+i)
                     .createDate(LocalDateTime.now())
-                    .likes(0)
                     .build();
-            replyService.addReply(reply,1L,200L);
+            replyService.addReply(reply,"오이",200L);
         }
     //when
         List<ReplyResponseDto> list = replyService.findAll(200L);

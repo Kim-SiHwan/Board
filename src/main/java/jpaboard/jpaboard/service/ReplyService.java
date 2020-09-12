@@ -23,7 +23,8 @@ public class ReplyService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long addReply(Reply reply,Long memberId,Long boardId){
+    public Long addReply(Reply reply,String userName,Long boardId){
+        Long memberId = memberRepository.getIdByName(userName);
         Member member= memberRepository.findOne(memberId);
         Board board= boardRepository.findOne(boardId);
         reply.setMember(member);

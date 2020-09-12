@@ -1,7 +1,5 @@
 package jpaboard.jpaboard.RequestDto;
 
-import jpaboard.jpaboard.domain.Board;
-import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.domain.Reply;
 import lombok.Getter;
 
@@ -18,7 +16,7 @@ public class ReplyRequestDto {
 
     private LocalDateTime createDate;
 
-    private Long memberId;
+    private String userName;
 
     private Long boardId;
 
