@@ -1,6 +1,8 @@
 <html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/defaultLayout}">
+      layout:decorate="~{/layout/defaultLayout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -18,14 +20,17 @@
             <div id="boardInfoDiv">
                 <p><span class='badge badge-pill badge-info'>[[${view.userName}]]</span></p>
                 <p><span class='badge badge-pill badge-info float-right'>read : [[${view.read}]]</span></p>
-                <p><span class='badge badge-pill badge-info float-right'>date : [[${#temporals.format(view.createDate,('yyyy-MM-dd HH:mm'))}]]</span></p>
+                <p><span class='badge badge-pill badge-info float-right'>date : [[${#temporals.format(view.createDate,('yyyy-MM-dd HH:mm'))}]]</span>
+                </p>
             </div>
             <div class="form-group">
-            <textarea class="form-control" id="content" name="content" rows="43" th:text="${view.content}" readonly="readonly"></textarea>
+                <textarea class="form-control" id="content" name="content" rows="43" th:text="${view.content}"
+                          readonly="readonly"></textarea>
             </div>
             <div id="thumbs">
                 <div id="thumbs-up">
-                    <i id="thumbs-up-icon" class='far fa-thumbs-up'></i><small><p>추천<small>[[${view.boardLikeCount}]]</small></p></small>
+                    <i id="thumbs-up-icon" class='far fa-thumbs-up'></i><small><p>
+                    추천<small>[[${view.boardLikeCount}]]</small></p></small>
                 </div>
             </div>
 
@@ -33,17 +38,15 @@
 
             </div>
 
-            <p>댓글 작성</p>
-            <select name="memberId" id="member" class="form-control">
-                <option>회원선택</option>
-                <option th:each="member : ${memberList}" th:value="${member.id}" th:text="${member.userName}"/>
-            </select>
-            <div>
+            <div sec:authorize="isAuthenticated()">
+                <p>댓글 작성</p>
+                <div>
                 <textarea rows="3" cols="30" class="form-control" id="inputReply"
                           style="width: 95%;display: inline"></textarea>
-                <button class="btn btn-primary btn-sm float-right btn-sm" id="addReply"
-                        style="display: inline; width: 71px;height: 85px; ">작성
-                </button>
+                    <button class="btn btn-primary btn-sm float-right btn-sm" id="addReply"
+                            style="display: inline; width: 71px;height: 85px; ">작성
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -69,36 +72,42 @@
 
                     var replyList = data[i];
                     str +=
-                        "<div id='replierDiv'><p style='display: inline-block'><b><span class='badge badge-primary'>"+replyList.userName+"</span></b></p>" +
-                        "<span class='badge badge-primary float-right'>"+replyList.createDate+"</span>" +
-                        "<i class='far fa-thumbs-up' id='replyUp' href='" + replyList.id + "' >"+replyList.replyLikeCount+"</i>" +
-                        "</div>"+
-                        "<div id='replyContentDiv'><textarea id='replyContent' rows='2' class='form-control' readonly = readonly>"+replyList.content+"</textarea></div><br>";
+                        "<div id='replierDiv'><p style='display: inline-block'><b><span class='badge badge-primary'>" + replyList.userName + "</span></b></p>" +
+                        "<span class='badge badge-primary float-right'>" + replyList.createDate + "</span>" +
+                        "<i class='far fa-thumbs-up' id='replyUp' href='" + replyList.id + "' >" + replyList.replyLikeCount + "</i>" +
+                        "</div>" +
+                        "<div id='replyContentDiv'><textarea id='replyContent' rows='2' class='form-control' readonly = readonly>" + replyList.content + "</textarea></div><br>";
                 }
                 $("#replyDiv").html(str);
             }
 
             var obj;
+            var userName = [[${#authentication.name}]];
             $(document).on("click", "#addReply", function (e) {
                 var content = $("#inputReply").val();
-                var memberId = $("#member").val();
                 var boardId = [[${view.id}]];
-                obj = {boardId: boardId, content: content, memberId: memberId};
+                obj = {boardId: boardId, content: content, userName: userName};
                 replyManager.add(obj, printList);
                 $("#inputReply").val("");
             });
 
-            $(document).on('click','#thumbs-up-icon',function (e){
-                var memberId = $("#member").val();
+            $(document).on('click', '#thumbs-up-icon', function (e) {
+                if (userName === 'anonymousUser') {
+                    alert("로그인이 필요한 서비스입니다.");
+                    return false;
+                }
                 var boardId = [[${view.id}]];
-                obj = {memberId : memberId , id : boardId , type :"board"};
+                obj = {userName: userName, id: boardId, type: "board"};
                 likeManager.add(obj);
             });
 
-            $(document).on('click','#replyUp',function (e){
-                var memberId = $("#member").val();
+            $(document).on('click', '#replyUp', function (e) {
+                if (userName === 'anonymousUser') {
+                    alert("로그인이 필요한 서비스입니다.");
+                    return false;
+                }
                 var replyId = $(this).attr('href');
-                obj = {memberId : memberId, id : replyId , type :"reply"};
+                obj = {userName: userName, id: replyId, type: "reply"};
                 likeManager.add(obj);
             });
 
