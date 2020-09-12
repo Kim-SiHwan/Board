@@ -6,7 +6,6 @@ import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.repository.BoardRepository;
 import jpaboard.jpaboard.service.BoardService;
 import jpaboard.jpaboard.service.MemberService;
-import jpaboard.jpaboard.vo.PageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -65,5 +64,15 @@ public class BoardController {
         boardService.removeBoard(id);
         return "redirect:/boards/home";
     }
+
+    @GetMapping("/best_home")
+    public String bestHome(Model model, PageRequestDto pageRequestDto){
+        model.addAttribute("list",boardService.findAllByLike(pageRequestDto));
+        model.addAttribute("vo", boardService.makePage(pageRequestDto));
+        return "/boards/home";
+    }
+
+
+
 
 }

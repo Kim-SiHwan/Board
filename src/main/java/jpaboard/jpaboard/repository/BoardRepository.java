@@ -42,4 +42,11 @@ public class BoardRepository {
         query.setMaxResults(pageRequestDto.getSize());
         return query.getResultList();
     }
+
+    public List<Board> findAllByLike(PageRequestDto pageRequestDto){
+        TypedQuery <Board> query = em.createQuery("select b from Board b where b.boardLikes.size>1 order by b.id desc",Board.class);
+        query.setFirstResult((pageRequestDto.getPage()-1)*10);
+        query.setMaxResults(pageRequestDto.getSize());
+        return query.getResultList();
+    }
 }

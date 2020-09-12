@@ -59,6 +59,18 @@ public class BoardService {
         return boardResponseDtoList;
     }
 
+    public List<BoardResponseDto> findAllByLike(PageRequestDto pageRequestDto){
+        List<Board> boardList = boardRepository.findAllByLike(pageRequestDto);
+        List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
+
+        boardList.stream().forEach(board -> {
+            BoardResponseDto boardResponseDto = new BoardResponseDto(board);
+            boardResponseDtoList.add(boardResponseDto);
+        });
+
+        return boardResponseDtoList;
+    }
+
 
     @Transactional
     public void addReadCount(Long id) {
