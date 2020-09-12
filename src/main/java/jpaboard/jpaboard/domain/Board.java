@@ -1,7 +1,6 @@
 package jpaboard.jpaboard.domain;
 
 
-import jpaboard.jpaboard.RequestDto.BoardRequestDto;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,8 +22,8 @@ public class Board {
     private String title;
     private String content;
     private LocalDateTime createDate;
-    private int likes;
     private int read;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -33,9 +32,9 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replies = new ArrayList<>();
 
-    public void changeLikes(int likes){
-        this.likes+=likes;
-    }
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<BoardLike> boardLikes = new ArrayList<>();
+
     public void addReadCount() {
         this.read += 1;
     }
@@ -46,12 +45,11 @@ public class Board {
     }
 
     @Builder(builderClassName = "makeBoard", builderMethodName = "makeBoard")
-    public Board(Long id, String title, String content, LocalDateTime createDate, int likes, int read) {
+    public Board(Long id, String title, String content, LocalDateTime createDate, int read) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
-        this.likes = likes;
         this.read = read;
     }
 }

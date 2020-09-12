@@ -97,7 +97,6 @@ public class BoardServiceTest {
 
     public Board makeBoard(){
         return Board.makeBoard()
-                .likes(0)
                 .read(0)
                 .title("오이T")
                 .content("오이C")

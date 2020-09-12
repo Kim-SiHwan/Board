@@ -28,8 +28,6 @@ public class BoardRequestDto {
 
     private LocalDateTime createDate;
 
-    private int likes;
-
     private int read;
 
     private Long memberId;
@@ -41,7 +39,6 @@ public class BoardRequestDto {
                 .title(boardRequestDto.getTitle())
                 .content(boardRequestDto.getContent())
                 .createDate(LocalDateTime.now())
-                .likes(0)
                 .read(0)
                 .build();
     }

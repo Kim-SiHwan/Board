@@ -28,8 +28,7 @@ public class BoardRepository {
         em.persist(board);
     }
 
-    public void remove(Long id){
-        Board board = em.find(Board.class,id);
+    public void remove(Board board){
         em.remove(board);
     }
 

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +32,8 @@ public class BoardService {
 
     @Transactional
     public void removeBoard(Long boardId){
-        boardRepository.remove(boardId);
+        Board board = boardRepository.findOne(boardId);
+        boardRepository.remove(board);
     }
 
     public PageMaker makePage(PageRequestDto pageRequestDto){
