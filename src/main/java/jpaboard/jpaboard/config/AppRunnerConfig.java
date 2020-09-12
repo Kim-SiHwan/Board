@@ -31,7 +31,7 @@ public class AppRunnerConfig implements ApplicationRunner {
     {
         Member member1=Member.createMember()
                 .userName("오이")
-                .passWord(pwEncoder.encode("123"))
+                .password(pwEncoder.encode("123"))
                 .address(new Address("감자","토마토","양배추"))
                 .joinDate(LocalDateTime.now())
                 .role("USER")
@@ -40,7 +40,7 @@ public class AppRunnerConfig implements ApplicationRunner {
 
         Member member2=Member.createMember()
                 .userName("배추")
-                .passWord(pwEncoder.encode("123"))
+                .password(pwEncoder.encode("123"))
                 .address(new Address("감자","양상추","고구마"))
                 .joinDate(LocalDateTime.now())
                 .role("USER")
@@ -49,7 +49,7 @@ public class AppRunnerConfig implements ApplicationRunner {
 
         Member member=Member.createMember()
                 .userName("관리자")
-                .passWord(pwEncoder.encode("123"))
+                .password(pwEncoder.encode("123"))
                 .address(new Address("인천","남동","아파트"))
                 .joinDate(LocalDateTime.now())
                 .role("ADMIN")
@@ -57,23 +57,25 @@ public class AppRunnerConfig implements ApplicationRunner {
         memberService.join(member);
         Long memberId = 1L;
 
-        for(int i=1; i<=50; i++) {
+        for(int i=1; i<=200; i++) {
             memberId = memberId ==1L ? 2L : 1L;
+            String userName = memberId == 1L ?"오이" : "배추";
             Board board = Board.makeBoard()
                     .title("Title" + i)
                     .content("Content" + i)
                     .createDate(LocalDateTime.now())
-                    .read(0)
+                    .read(i%7)
                     .build();
-            boardService.upload(board, memberId);
+            boardService.upload(board, userName);
 
             for (int j = 1; j <= 10; j++) {
                 memberId = memberId ==1L ? 2L : 1L;
+                userName = memberId == 1L ?"오이" : "배추";
                 Reply reply = Reply.createReply()
                         .content("Reply" + j)
                         .createDate(LocalDateTime.now())
                         .build();
-                replyService.addReply(reply, memberId, board.getId());
+                replyService.addReply(reply, userName, board.getId());
             }
         }
 

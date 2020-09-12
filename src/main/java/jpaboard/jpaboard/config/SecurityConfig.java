@@ -1,9 +1,7 @@
 package jpaboard.jpaboard.config;
 
-import jpaboard.jpaboard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .ignoringAntMatchers("/replies/**")
                 .ignoringAntMatchers("/h2/**")
-                .ignoringAntMatchers("/boards/uploadBoard");
+                .ignoringAntMatchers("/boards/uploadBoard")
+                .ignoringAntMatchers("/like/**");
         http.headers().frameOptions().disable();
         http.formLogin().defaultSuccessUrl("/boards/home");
         http.logout().logoutSuccessUrl("/boards/home");
