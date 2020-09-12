@@ -3,7 +3,6 @@ package jpaboard.jpaboard.controller;
 import jpaboard.jpaboard.RequestDto.BoardRequestDto;
 import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
-import jpaboard.jpaboard.repository.BoardRepository;
 import jpaboard.jpaboard.service.BoardService;
 import jpaboard.jpaboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,6 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
-    private final BoardRepository boardRepository;
 
     @GetMapping("/home")
     public String home(Model model, PageRequestDto pageRequestDto){
@@ -34,7 +32,6 @@ public class BoardController {
 
     @GetMapping("/new")
     public String uploadForm(Model model){
-        model.addAttribute("memberList",memberService.findAll());
         model.addAttribute("uploadForm", new BoardRequestDto());
         return "/boards/uploadBoard";
     }
@@ -47,7 +44,7 @@ public class BoardController {
             return "/boards/uploadBoard";
         }
         Board board = boardRequestDto.toEntity(boardRequestDto);
-        boardService.upload(board, boardRequestDto.getMemberId());
+        boardService.upload(board, boardRequestDto.getUserName());
         return "redirect:/boards/home";
     }
 

@@ -40,7 +40,7 @@ public class BoardServiceTest {
         memberService.join(member);
     //when
         Board board = makeBoard();
-        boardService.upload(board, member.getId());
+        boardService.upload(board, member.getUserName());
 
         Board getBoard = boardRepository.findOne(board.getId());
     //then
@@ -55,7 +55,7 @@ public class BoardServiceTest {
         Member member = createMember();
         memberService.join(member);
         Board board=makeBoard();
-        boardService.upload(board, member.getId());
+        boardService.upload(board, member.getUserName());
     //when
         System.out.println(board.getTitle());
         boardService.removeBoard(board.getId());

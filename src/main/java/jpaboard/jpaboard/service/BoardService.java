@@ -1,6 +1,5 @@
 package jpaboard.jpaboard.service;
 
-import jpaboard.jpaboard.RequestDto.BoardRequestDto;
 import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
@@ -23,7 +22,8 @@ public class BoardService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long upload(Board board,Long memberId){
+    public Long upload(Board board,String userName){
+        Long memberId = memberRepository.getIdByName(userName);
         Member member = memberRepository.findOne(memberId);
         board.setMember(member);
         boardRepository.save(board);

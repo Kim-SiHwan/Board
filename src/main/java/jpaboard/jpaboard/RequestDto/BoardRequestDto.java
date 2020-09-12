@@ -1,15 +1,10 @@
 package jpaboard.jpaboard.RequestDto;
 
 import jpaboard.jpaboard.domain.Board;
-import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.domain.Reply;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -30,7 +25,7 @@ public class BoardRequestDto {
 
     private int read;
 
-    private Long memberId;
+    private String userName;
 
     private List<Reply> replies = new ArrayList<>();
 
