@@ -26,7 +26,16 @@
             <div class="form-group">
                 <textarea class="form-control" id="content" name="content" rows="43" th:text="${view.content}"
                           readonly="readonly"></textarea>
+            </div >
+
+            <div id="buttons" sec:authorize="isAuthenticated()" th:if="${#authentication.name==view.userName || #authentication.authorities[0].authority=='ROLE_ADMIN' }">
+                <button class="btn btn-outline-danger float-right" id="deleteBtn">삭제</button>
+                <button class="btn btn-outline-info float-right" id="updateBtn">수정</button>
             </div>
+
+            <form id="form" th:action="@{/}" method="post">
+            </form>
+
             <div id="thumbs">
                 <div id="thumbs-up">
                     <i id="thumbs-up-icon" class='far fa-thumbs-up'></i><small><p>
@@ -41,14 +50,11 @@
             <div sec:authorize="isAuthenticated()">
                 <p>댓글 작성</p>
                 <div>
-                <textarea rows="3" cols="30" class="form-control" id="inputReply"
-                          style="width: 95%;display: inline"></textarea>
-                    <button class="btn btn-primary btn-sm float-right btn-sm" id="addReply"
-                            style="display: inline; width: 71px;height: 85px; ">작성
+                <textarea rows="3" cols="30" class="form-control" id="inputReply"></textarea>
+                    <button class="btn btn-primary btn-sm float-right btn-sm" id="addReply">작성
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -64,31 +70,44 @@
     <script th:inline=javascript>
         $(document).on("ready", function (e) {
 
+            var obj;
+            var userName = [[${#authentication.name}]];
+            var authority = [[${#authentication.authorities[0].authority}]];
+            var boardId = [[${view.id}]];
+            var form = $('#form');
             replyManager.getAll([[${view.id}]], printList);
 
             function printList(data) {
                 var str = "";
                 for (var i = 0; i < data.length; i++) {
-
                     var replyList = data[i];
+                    var checkAuthentication = userName === replyList.userName ? true : false;
+                    var checkAdmin = authority.toString() === 'ROLE_ADMIN' ? true : false;
                     str +=
                         "<div id='replierDiv'><p style='display: inline-block'><b><span class='badge badge-primary'>" + replyList.userName + "</span></b></p>" +
                         "<span class='badge badge-primary float-right'>" + replyList.createDate + "</span>" +
-                        "<i class='far fa-thumbs-up' id='replyUp' href='" + replyList.id + "' >" + replyList.replyLikeCount + "</i>" +
-                        "</div>" +
+                        "<i class='far fa-thumbs-up' id='replyUp' href='" + replyList.id + "' >" + replyList.replyLikeCount + "</i>";
+                    if (checkAuthentication === true || checkAdmin == true) {
+                        str += "<a id='replyDeleteLink' href='" + replyList.id + "'><small>삭제</small></a>";
+                    }
+                        str += "</div>" +
                         "<div id='replyContentDiv'><textarea id='replyContent' rows='2' class='form-control' readonly = readonly>" + replyList.content + "</textarea></div><br>";
                 }
                 $("#replyDiv").html(str);
             }
 
-            var obj;
-            var userName = [[${#authentication.name}]];
             $(document).on("click", "#addReply", function (e) {
                 var content = $("#inputReply").val();
-                var boardId = [[${view.id}]];
                 obj = {boardId: boardId, content: content, userName: userName};
                 replyManager.add(obj, printList);
                 $("#inputReply").val("");
+            });
+
+            $(document).on('click','#replyDeleteLink',function (e){
+                e.preventDefault();
+                var replyId = $(this).attr('href');
+                obj = {boardId : boardId , replyId : replyId};
+                replyManager.remove(obj,printList);
             });
 
             $(document).on('click', '#thumbs-up-icon', function (e) {
@@ -96,7 +115,6 @@
                     alert("로그인이 필요한 서비스입니다.");
                     return false;
                 }
-                var boardId = [[${view.id}]];
                 obj = {userName: userName, id: boardId, type: "board"};
                 likeManager.add(obj);
             });
@@ -109,6 +127,28 @@
                 var replyId = $(this).attr('href');
                 obj = {userName: userName, id: replyId, type: "reply"};
                 likeManager.add(obj);
+            });
+
+
+
+            $(document).on('click','#updateBtn',function (e){
+                var msg = confirm('수정하시겠습니까?');
+                if (msg) {
+                    $('#form').attr('action', 'update');
+                    $('#form').attr('method','get')
+                    form.append("<input type='hidden' name='boardId' value='" + boardId + "'>");
+                    form.submit();
+                }
+            });
+
+            $(document).on('click','#deleteBtn',function (e){
+                var msg = confirm('삭제하시겠습니까?');
+                if (msg) {
+                    $('#form').attr('action', 'remove');
+                    form.append("<input type='hidden' name='boardId' value='" + boardId + "'>");
+                    form.append("<input type='hidden' name='_method' value='delete'>");
+                    form.submit();
+                }
             });
 
         })

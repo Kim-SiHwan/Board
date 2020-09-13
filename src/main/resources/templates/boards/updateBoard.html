@@ -3,21 +3,28 @@
       layout:decorate="~{/layout/defaultLayout}">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입</title>
+    <title>수정하기</title>
 </head>
 <body>
 
 <div layout:fragment="content">
     <div class="panel-body">
-        <button class="btn btn-outline-danger">asd</button>
 
-        <form id="form" th:action="@{/boards/new}" method="post" th:object="${uploadForm}">
+        <form id="form" th:action="@{update}" method="post">
 
-            <input type="text" class="form-control" th:value="${#authentication.name}" readonly = readonly name="userName">
+            <label th:for="userName">작성자</label>
+            <input type="text" class="form-control" th:value="${#authentication.name}" readonly = readonly name="userName" id="userName">
 
-            <input type="text" class="form-control" placeholder="제목을 입력해주세요." th:field="*{title}">
-            <textarea class="form-control" th:field="*{content}" rows="43" placeholder="내용을 입력해주세요"></textarea>
-            <button id="submitBtn" type="submit" class="btn btn-outline-primary float-right">작성하기</button>
+            <label th:for="title">제목</label>
+            <input type="text" class="form-control" placeholder="제목을 입력해주세요." th:value="${view.title}" name="title" id="title">
+
+            <label th:for="content">내용</label>
+            <textarea class="form-control"  rows="43" placeholder="내용을 입력해주세요"  name="content" id="content">[[${view.content}]]</textarea>
+
+            <input type="hidden" name="boardId" th:value="${view.id}">
+            <input type="hidden" name="_method" value="put">
+
+            <button id="submitBtn" type="submit" class="btn btn-outline-primary">수정하기</button>
 
         </form>
     </div>
