@@ -10,10 +10,10 @@
 <div layout:fragment="content">
     <div class="panel-body">
 
-        <form id="form" th:action="@{update}" method="post">
+        <form id="form" th:action="@{update}" th:object="${view}" method="post">
 
             <label th:for="userName">작성자</label>
-            <input type="text" class="form-control" th:value="${#authentication.name}" readonly = readonly name="userName" id="userName">
+            <input type="text" class="form-control" th:value="${view.userName}" readonly = readonly name="userName" id="userName">
 
             <label th:for="title">제목</label>
             <input type="text" class="form-control" placeholder="제목을 입력해주세요." th:value="${view.title}" name="title" id="title">

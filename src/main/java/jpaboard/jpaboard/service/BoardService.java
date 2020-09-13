@@ -37,11 +37,6 @@ public class BoardService {
         boardRepository.remove(board);
     }
 
-    @Transactional
-    public void updateBoard(BoardRequestDto boardRequestDto){
-        boardRepository.update(boardRequestDto);
-    }
-
     public PageMaker makePage(PageRequestDto pageRequestDto){
         PageMaker pageMaker = new PageMaker(pageRequestDto, boardRepository.countBoard());
         return pageMaker;

@@ -30,16 +30,15 @@ public class BoardRepository {
     }
 
     public void save(Board board){
-        em.persist(board);
+        if(board.getId()==null) {
+            em.persist(board);
+        }else{
+            em.merge(board);
+        }
     }
 
     public void remove(Board board){
         em.remove(board);
-    }
-
-    public void update(BoardRequestDto boardRequestDto){
-        Board board = findOne(boardRequestDto.getBoardId());
-        board = boardRequestDto.toEntity(boardRequestDto);
     }
 
     public Board findOne(Long id){

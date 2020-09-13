@@ -67,7 +67,8 @@ public class BoardController {
     @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @PutMapping("/update")
     public String updateBoard(BoardRequestDto boardRequestDto , RedirectAttributes rt){
-        boardService.updateBoard(boardRequestDto);
+        Board board = boardRequestDto.toEntity(boardRequestDto);
+        boardService.upload(board,boardRequestDto.getUserName());
         rt.addAttribute("boardId",boardRequestDto.getBoardId());
         return "redirect:/boards/view";
     }
