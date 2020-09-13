@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
         Member member= memberRepository.findByName(username).get(0);
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Role_PREFIX+member.getRole()));
-        return new User(member.getUserName(),member.getPassWord(),authorities);
+        return new User(member.getUserName(),member.getPassword(),authorities);
 
     }
 
