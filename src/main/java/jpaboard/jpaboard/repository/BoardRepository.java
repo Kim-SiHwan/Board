@@ -30,11 +30,7 @@ public class BoardRepository {
     }
 
     public void save(Board board){
-        if(board.getId()==null) {
-            em.persist(board);
-        }else{
-            em.merge(board);
-        }
+        em.persist(board);
     }
 
     public void remove(Board board){

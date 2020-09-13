@@ -7,6 +7,7 @@ import jpaboard.jpaboard.domain.Address;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.repository.BoardRepository;
+import jpaboard.jpaboard.responseDto.BoardResponseDto;
 import jpaboard.jpaboard.service.BoardService;
 import jpaboard.jpaboard.service.MemberService;
 import org.junit.Test;
@@ -77,6 +78,22 @@ public class BoardServiceTest {
         for(int i=0; i<list.size(); i++){
             System.out.println(list.get(i).getTitle());
         }
+    }
+    @Test
+    public void updateBoard (){
+    //given
+        Board board= boardRepository.findOne(200L);
+    //when
+
+        BoardRequestDto boardRequestDto = new BoardRequestDto();
+        boardRequestDto.setBoardId(200L);
+        boardRequestDto.setTitle("update");
+        boardRequestDto.setContent("updateContent");
+        boardService.updateBoard(boardRequestDto);
+    //then
+        assertEquals("update",board.getTitle());
+        assertEquals("updateContent",board.getContent());
+
     }
 
     @Test
