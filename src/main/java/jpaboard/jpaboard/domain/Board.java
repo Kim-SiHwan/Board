@@ -35,6 +35,7 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<BoardLike> boardLikes = new ArrayList<>();
 
+
     public void addReadCount() {
         this.read += 1;
     }
@@ -42,6 +43,14 @@ public class Board {
     public void setMember(Member getMember) {
         member = getMember;
         member.getBoards().add(this);
+    }
+
+    public void changeTitle(String title){
+        this.title=title;
+    }
+
+    public void changeContent(String content){
+        this.content=content;
     }
 
     @Builder(builderClassName = "makeBoard", builderMethodName = "makeBoard")
