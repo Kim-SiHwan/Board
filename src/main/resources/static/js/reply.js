@@ -21,22 +21,11 @@ var replyManager = (function () {
 
   };
 
-  var update = function (obj, callback) {
-    $.ajax({
-      type: 'put',
-      url: '/replies/' + obj.bno + "/" + obj.rno,
-      data: JSON.stringify(obj),
-      contentType: "application/json",
-      dataType: 'json',
-      success: callback
-    });
-  };
-
   var remove = function (obj, callback) {
 
     $.ajax({
       type: 'delete',
-      url: '/replies/' + obj.bno + "/" + obj.rno,
+      url: '/replies/' + obj.boardId +'/'+obj.replyId,
       dataType: 'json',
       success: callback
     });
@@ -46,7 +35,6 @@ var replyManager = (function () {
   return {
     getAll: getAll,
     add: add,
-    update: update,
     remove: remove
   }
 
