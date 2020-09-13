@@ -1,5 +1,6 @@
 package jpaboard.jpaboard.service;
 
+import jpaboard.jpaboard.RequestDto.BoardRequestDto;
 import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
@@ -36,11 +37,19 @@ public class BoardService {
         boardRepository.remove(board);
     }
 
+    @Transactional
+    public void updateBoard(BoardRequestDto boardRequestDto){
+        boardRepository.update(boardRequestDto);
+    }
+
     public PageMaker makePage(PageRequestDto pageRequestDto){
         PageMaker pageMaker = new PageMaker(pageRequestDto, boardRepository.countBoard());
         return pageMaker;
     }
-
+    public PageMaker makePageByBest(PageRequestDto pageRequestDto){
+        PageMaker pageMaker = new PageMaker(pageRequestDto, boardRepository.countBestBoard());
+        return pageMaker;
+    }
     public BoardResponseDto findOne(Long id){
         Board board = boardRepository.findOne(id);
         BoardResponseDto responseDto = new BoardResponseDto(board);

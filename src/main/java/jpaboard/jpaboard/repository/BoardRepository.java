@@ -1,5 +1,6 @@
 package jpaboard.jpaboard.repository;
 
+import jpaboard.jpaboard.RequestDto.BoardRequestDto;
 import jpaboard.jpaboard.RequestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,23 @@ public class BoardRepository {
         return count;
     }
 
+    public int countBestBoard(){
+        Query query = em.createQuery("select count(b.id) as cnt from Board b where b.boardLikes.size>1");
+        int count = Integer.parseInt(query.getSingleResult().toString());
+        return count;
+    }
+
     public void save(Board board){
         em.persist(board);
     }
 
     public void remove(Board board){
         em.remove(board);
+    }
+
+    public void update(BoardRequestDto boardRequestDto){
+        Board board = findOne(boardRequestDto.getBoardId());
+        board = boardRequestDto.toEntity(boardRequestDto);
     }
 
     public Board findOne(Long id){

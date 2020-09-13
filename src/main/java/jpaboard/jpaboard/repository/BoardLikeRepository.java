@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,12 +17,6 @@ public class BoardLikeRepository {
 
     public void remove(BoardLike boardLike){
         em.remove(boardLike);
-    }
-
-    public int count(){
-        Query query = em.createQuery("select count(bl.id) as cnt from BoardLike bl");
-        int count = Integer.parseInt(query.getSingleResult().toString());
-        return count;
     }
 
     public BoardLike findByAllId(Long memberId, Long boardId){

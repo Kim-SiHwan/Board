@@ -14,6 +14,9 @@ import java.util.List;
 @Getter
 @Setter
 public class BoardRequestDto {
+
+    private Long boardId;
+
     @NotEmpty(message = "제목을 입력해주세요.")
     private String title;
 
