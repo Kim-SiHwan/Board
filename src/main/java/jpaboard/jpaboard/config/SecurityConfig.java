@@ -2,6 +2,7 @@ package jpaboard.jpaboard.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -18,12 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/boards/home").permitAll()
                 .antMatchers("/boards/view").permitAll()
                 .antMatchers("/boards/uploadBoard").hasAnyRole("ADMIN","USER")
+                .antMatchers("/boards/updateBoard").hasAnyRole("ADMIN,USER")
                 .antMatchers("/h2/*").permitAll()
                 .antMatchers("/replies/**").permitAll();
         http.csrf()
                 .ignoringAntMatchers("/replies/**")
                 .ignoringAntMatchers("/h2/**")
                 .ignoringAntMatchers("/boards/uploadBoard")
+                .ignoringAntMatchers("/boards/updateBoard")
                 .ignoringAntMatchers("/like/**");
         http.headers().frameOptions().disable();
         http.formLogin().defaultSuccessUrl("/boards/home");
