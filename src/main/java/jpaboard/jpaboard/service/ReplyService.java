@@ -33,6 +33,12 @@ public class ReplyService {
         return reply.getId();
     }
 
+    @Transactional
+    public void removeReply(Long replyId){
+        Reply reply = replyRepository.findOne(replyId);
+        replyRepository.remove(reply);
+    }
+
     public ReplyResponseDto findOne(Long id){
         Reply reply = replyRepository.findOne(id);
         ReplyResponseDto replyResponseDto = new ReplyResponseDto(reply);

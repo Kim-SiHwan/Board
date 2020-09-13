@@ -21,6 +21,10 @@ public class ReplyRepository {
         return em.find(Reply.class,id);
     }
 
+    public void remove(Reply reply){
+        em.remove(reply);
+    }
+
     public List<Reply> findAll(Long boardId){
         return em.createQuery("select r from Reply r where r.board.id=:boardId",Reply.class)
                 .setParameter("boardId",boardId)
