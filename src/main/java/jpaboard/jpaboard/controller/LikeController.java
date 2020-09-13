@@ -5,6 +5,7 @@ import jpaboard.jpaboard.service.LikeService;
 import jpaboard.jpaboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -20,6 +21,7 @@ public class LikeController {
     private final BoardService boardService;
     private final BoardLikeRepository boardLikeRepository;
 
+    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @PostMapping("/{id}/{type}")
     public Map<String, String> addLike(@PathVariable("id") Long id,
                                        @PathVariable("type") String type,

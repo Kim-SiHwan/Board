@@ -54,7 +54,6 @@ public class LikeService {
             try {
                 BoardLike boardLike = boardLikeRepository.findByAllId(memberId, id);
             } catch (Exception e) {
-                e.printStackTrace();
                 return false;
             }
             return true;
@@ -62,7 +61,6 @@ public class LikeService {
             try {
                 ReplyLike replyLike = replyLikeRepository.findByAllId(memberId, id);
             } catch (Exception e) {
-                e.printStackTrace();
                 return false;
             }
             return true;
