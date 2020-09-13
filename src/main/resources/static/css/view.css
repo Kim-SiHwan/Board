@@ -3,48 +3,70 @@
     margin: 0 auto;
 }
 
-#boardHeadDiv{
+#boardHeadDiv {
     background-color: darkseagreen;
 }
 
-#boardInfoDiv > p{
+#boardInfoDiv > p {
     display: inline;
 }
 
-#content{
+#content {
     background-color: white;
 }
-#thumbs{
+
+#thumbs {
     margin-left: 450px;
 }
 
 
-#thumbs-up{
+#thumbs-up {
     display: inline-block;
     cursor: pointer;
 }
 
-#thumbs-up > i , #commentsIcon{
-    font-size:36px;
+#thumbs-up > i, #commentsIcon {
+    font-size: 36px;
 }
 
-#replierDiv{
+#inputReply {
+    width: 95%;
+    display: inline;
 }
 
-#replierDiv > p{
+#addReply {
+    display: inline;
+    width: 71px;
+    height: 85px;
+}
+
+#replierDiv {
+}
+
+#replierDiv > p {
     margin-left: 15px;
 }
 
-#replyContentDiv{
+#replyContentDiv {
     margin-top: -17px;
 }
 
-#replyUp{
+#replyUp {
     position: absolute;
     margin-left: 960px;
     margin-top: 3px;
-    cursor:pointer;
+    cursor: pointer;
 }
+
+#replyDeleteLink{
+    position: absolute;
+    margin-left: 1020px;
+    margin-top: -3px;
+    text-decoration: none;
+    color: indianred;
+
+}
+
 
 
 
