@@ -5,6 +5,7 @@ import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.domain.Reply;
 import jpaboard.jpaboard.service.BoardService;
+import jpaboard.jpaboard.service.LikeService;
 import jpaboard.jpaboard.service.MemberService;
 import jpaboard.jpaboard.service.ReplyService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class AppRunnerConfig implements ApplicationRunner {
     private final MemberService memberService;
     private final BoardService boardService;
     private final ReplyService replyService;
+    private final LikeService likeService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception
@@ -77,7 +79,11 @@ public class AppRunnerConfig implements ApplicationRunner {
                         .build();
                 replyService.addReply(reply, userName, board.getId());
             }
+
         }
+        likeService.addLike("오이",200L,"board");
+        likeService.addLike("배추",200L,"board");
+        likeService.addLike("관리자",200L,"board");
 
     }
 }
