@@ -16,19 +16,6 @@ import java.util.List;
 public class BoardRepository {
     private final EntityManager em;
 
-
-    public int countBoard(){
-        Query query = em.createQuery("select count(b.id) as cnt from Board b");
-        int count = Integer.parseInt(query.getSingleResult().toString());
-        return count;
-    }
-
-    public int countBestBoard(){
-        Query query = em.createQuery("select count(b.id) as cnt from Board b where b.boardLikes.size>1");
-        int count = Integer.parseInt(query.getSingleResult().toString());
-        return count;
-    }
-
     public void save(Board board){
         em.persist(board);
     }
@@ -54,4 +41,19 @@ public class BoardRepository {
         query.setMaxResults(pageRequestDto.getSize());
         return query.getResultList();
     }
+
+
+    public int countBoard(){
+        Query query = em.createQuery("select count(b.id) as cnt from Board b");
+        int count = Integer.parseInt(query.getSingleResult().toString());
+        return count;
+    }
+
+
+    public int countBestBoard(){
+        Query query = em.createQuery("select count(b.id) as cnt from Board b where b.boardLikes.size>1");
+        int count = Integer.parseInt(query.getSingleResult().toString());
+        return count;
+    }
+
 }

@@ -45,11 +45,8 @@ public class Board {
         member.getBoards().add(this);
     }
 
-    public void changeTitle(String title){
+    public void changeText(String title, String content){
         this.title=title;
-    }
-
-    public void changeContent(String content){
         this.content=content;
     }
 

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,13 +48,11 @@ public class ReplyService {
 
     public List<ReplyResponseDto> findAll(Long boardId){
         List<Reply> replyList = replyRepository.findAll(boardId);
-        List<ReplyResponseDto> replyResponseDtoList = new ArrayList<>();
 
-        replyList.stream().forEach(reply -> {
-            ReplyResponseDto replyResponseDto = new ReplyResponseDto(reply);
-            replyResponseDtoList.add(replyResponseDto);
-        });
+        List<ReplyResponseDto> list = replyList.stream()
+                .map(m -> new ReplyResponseDto(m))
+                .collect(Collectors.toList());
 
-        return replyResponseDtoList;
+        return list;
     }
 }

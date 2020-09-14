@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,8 +42,7 @@ public class BoardService {
     @Transactional
     public void updateBoard(BoardRequestDto boardRequestDto){
         Board board = boardRepository.findOne(boardRequestDto.getBoardId());
-        board.changeTitle(boardRequestDto.getTitle());
-        board.changeContent(boardRequestDto.getContent());
+        board.changeText(boardRequestDto.getTitle(), boardRequestDto.getContent());
 
     }
 
@@ -61,14 +62,12 @@ public class BoardService {
 
     public List<BoardResponseDto> findAll(PageRequestDto pageRequestDto){
         List<Board> boardList = boardRepository.findAll(pageRequestDto);
-        List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
 
-        boardList.stream().forEach(board -> {
-            BoardResponseDto boardResponseDto = new BoardResponseDto(board);
-            boardResponseDtoList.add(boardResponseDto);
-        });
+        List<BoardResponseDto> list = boardList.stream()
+                .map(m -> new BoardResponseDto(m))
+                .collect(Collectors.toList());
 
-        return boardResponseDtoList;
+        return list;
     }
 
     public List<BoardResponseDto> findAllByLike(PageRequestDto pageRequestDto){
