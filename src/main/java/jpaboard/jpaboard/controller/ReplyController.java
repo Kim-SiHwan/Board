@@ -19,7 +19,7 @@ import java.util.List;
 public class ReplyController {
     private final ReplyService replyService;
 
-    private List<ReplyResponseDto> getReplies(Long boardId){
+    private ReplyResponseDto.Result getReplies(Long boardId){
         return replyService.findAll(boardId);
     }
 

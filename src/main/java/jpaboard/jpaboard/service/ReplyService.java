@@ -46,13 +46,13 @@ public class ReplyService {
         return replyResponseDto;
     }
 
-    public List<ReplyResponseDto> findAll(Long boardId){
+    public ReplyResponseDto.Result findAll(Long boardId){
         List<Reply> replyList = replyRepository.findAll(boardId);
 
         List<ReplyResponseDto> list = replyList.stream()
                 .map(m -> new ReplyResponseDto(m))
                 .collect(Collectors.toList());
 
-        return list;
+        return new ReplyResponseDto.Result(list);
     }
 }

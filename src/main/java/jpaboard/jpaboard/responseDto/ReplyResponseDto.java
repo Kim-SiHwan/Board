@@ -1,9 +1,12 @@
 package jpaboard.jpaboard.responseDto;
 
 import jpaboard.jpaboard.domain.Reply;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class ReplyResponseDto {
@@ -19,5 +22,12 @@ public class ReplyResponseDto {
         this.content= reply.getContent();
         this.createDate=reply.getCreateDate();
         this.replyLikeCount=reply.getReplyLikes().size();
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class Result <T>{
+        private T data;
+
     }
 }
