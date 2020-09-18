@@ -40,6 +40,7 @@
     <h4 id="h4"><a id="homeLink" th:href="@{/boards/home}">Board</a></h4>
     <a sec:authorize="isAnonymous()" th:href="@{/login}" id="loginLink">Login</a>
     <a sec:authorize="isAuthenticated()" th:href="@{/logout}" id="logoutLink">Logout</a>
+    <a th:href="@{/members/join}" id="joinLink">Join</a>
     <ul id="boardMenu">
         <li>게시판
             <ul id="boardSubMenu">

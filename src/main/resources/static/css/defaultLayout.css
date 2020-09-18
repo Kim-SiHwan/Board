@@ -25,6 +25,15 @@
 
 }
 
+#joinLink{
+    text-decoration: none;
+    color:ghostwhite;
+    font-size: 17px;
+    position: absolute;
+    margin-left: 1250px;
+    margin-top: 22px;
+}
+
 
 #boardMenu {
     display: inline-block;

@@ -30,13 +30,13 @@
 }
 
 #inputReply {
-    width: 95%;
+    width: 94%;
     display: inline;
 }
 
 #addReply {
     display: inline;
-    width: 71px;
+    width: 75px;
     height: 85px;
 }
 
@@ -58,7 +58,7 @@
     cursor: pointer;
 }
 
-#replyDeleteLink{
+#replyDeleteLink {
     position: absolute;
     margin-left: 1020px;
     margin-top: -3px;
@@ -67,6 +67,18 @@
 
 }
 
+#goTopLink {
+    position: fixed;
+    bottom: 50px;
+    right: 10px;
+    width: 34px;
+}
+
+#goReply {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+}
 
 
 
