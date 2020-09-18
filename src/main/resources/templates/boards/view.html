@@ -82,8 +82,8 @@
 
             function printList(data) {
                 var str = "";
-                for (var i = 0; i < data.length; i++) {
-                    var replyList = data[i];
+                for (var i = 0; i < data.data.length; i++) {
+                    var replyList = data.data[i];
                     var checkAuthentication = userName === replyList.userName ? true : false;
                     var checkAdmin = authority.toString() === 'ROLE_ADMIN' ? true : false;
                     str +=
