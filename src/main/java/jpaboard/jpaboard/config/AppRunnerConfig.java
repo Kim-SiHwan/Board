@@ -29,50 +29,49 @@ public class AppRunnerConfig implements ApplicationRunner {
     private final LikeService likeService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception
-    {
-        Member member1=Member.createMember()
+    public void run(ApplicationArguments args) throws Exception {
+        Member member1 = Member.createMember()
                 .userName("오이")
                 .password(pwEncoder.encode("123"))
-                .address(new Address("감자","토마토","양배추"))
+                .address(new Address("감자", "토마토", "양배추"))
                 .joinDate(LocalDateTime.now())
                 .role("USER")
                 .build();
         memberService.join(member1);
 
-        Member member2=Member.createMember()
+        Member member2 = Member.createMember()
                 .userName("배추")
                 .password(pwEncoder.encode("123"))
-                .address(new Address("감자","양상추","고구마"))
+                .address(new Address("감자", "양상추", "고구마"))
                 .joinDate(LocalDateTime.now())
                 .role("USER")
                 .build();
         memberService.join(member2);
 
-        Member member=Member.createMember()
+        Member member = Member.createMember()
                 .userName("관리자")
                 .password(pwEncoder.encode("123"))
-                .address(new Address("인천","남동","아파트"))
+                .address(new Address("인천", "남동", "아파트"))
                 .joinDate(LocalDateTime.now())
                 .role("ADMIN")
                 .build();
         memberService.join(member);
         Long memberId = 1L;
 
-        for(int i=1; i<=200; i++) {
-            memberId = memberId ==1L ? 2L : 1L;
-            String userName = memberId == 1L ?"오이" : "배추";
+        for (int i = 1; i <= 200; i++) {
+            memberId = memberId == 1L ? 2L : 1L;
+            String userName = memberId == 1L ? "오이" : "배추";
             Board board = Board.makeBoard()
                     .title("Title" + i)
                     .content("Content" + i)
                     .createDate(LocalDateTime.now())
-                    .read(i%7)
+                    .read(i % 7)
                     .build();
             boardService.upload(board, userName);
 
             for (int j = 1; j <= 10; j++) {
-                memberId = memberId ==1L ? 2L : 1L;
-                userName = memberId == 1L ?"오이" : "배추";
+                memberId = memberId == 1L ? 2L : 1L;
+                userName = memberId == 1L ? "오이" : "배추";
                 Reply reply = Reply.createReply()
                         .content("Reply" + j)
                         .createDate(LocalDateTime.now())
@@ -81,9 +80,9 @@ public class AppRunnerConfig implements ApplicationRunner {
             }
 
         }
-        likeService.addLike("오이",200L,"board");
-        likeService.addLike("배추",200L,"board");
-        likeService.addLike("관리자",200L,"board");
+        likeService.addLike("오이", 200L, "board");
+        likeService.addLike("배추", 200L, "board");
+        likeService.addLike("관리자", 200L, "board");
 
     }
 }

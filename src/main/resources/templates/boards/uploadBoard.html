@@ -13,7 +13,8 @@
 
         <form id="form" th:action="@{/boards/new}" method="post" th:object="${uploadForm}">
 
-            <input type="text" class="form-control" th:value="${#authentication.name}" readonly = readonly name="userName">
+            <input type="text" class="form-control" th:value="${#authentication.name}" readonly=readonly
+                   name="userName">
 
             <input type="text" class="form-control" placeholder="제목을 입력해주세요." th:field="*{title}">
             <textarea class="form-control" th:field="*{content}" rows="43" placeholder="내용을 입력해주세요"></textarea>
@@ -27,12 +28,12 @@
     <script th:inline=javascript>
         $(document).on("ready", function (e) {
             $(document).on("click", "#submitBtn", function (e) {
-                if($('#title').val().length === 0){
+                if ($('#title').val().length === 0) {
                     alert("제목을 입력하세요.");
                     $('#title').focus();
                     return false;
                 }
-                if($('#content').val().length <=1){
+                if ($('#content').val().length <= 1) {
                     alert("본문을 2자 이상 작성하세요.");
                     $('#content').focus();
                     return false;

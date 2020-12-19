@@ -22,13 +22,13 @@ import java.util.List;
 public class UserService implements UserDetailsService {
     private static final String Role_PREFIX = "ROLE_";
     private final MemberRepository memberRepository;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {
-        Member member= memberRepository.findByName(username).get(0);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Member member = memberRepository.findByName(username).get(0);
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(Role_PREFIX+member.getRole()));
-        return new User(member.getUserName(),member.getPassword(),authorities);
+        authorities.add(new SimpleGrantedAuthority(Role_PREFIX + member.getRole()));
+        return new User(member.getUserName(), member.getPassword(), authorities);
 
     }
 

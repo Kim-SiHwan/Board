@@ -22,8 +22,8 @@ public class ReplyLike {
     @JoinColumn(name = "reply_id")
     private Reply reply;
 
-    public void setMember(Member member){
-        this.member=member;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public void setReply(Reply reply) {

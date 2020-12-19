@@ -26,9 +26,10 @@
             <div class="form-group">
                 <textarea class="form-control" id="content" name="content" rows="43" th:text="${view.content}"
                           readonly="readonly"></textarea>
-            </div >
+            </div>
 
-            <div id="buttons" sec:authorize="isAuthenticated()" th:if="${#authentication.name==view.userName || #authentication.authorities[0].authority=='ROLE_ADMIN' }">
+            <div id="buttons" sec:authorize="isAuthenticated()"
+                 th:if="${#authentication.name==view.userName || #authentication.authorities[0].authority=='ROLE_ADMIN' }">
                 <button class="btn btn-outline-danger float-right" id="deleteBtn">삭제</button>
                 <button class="btn btn-outline-info float-right" id="updateBtn">수정</button>
             </div>
@@ -42,10 +43,12 @@
                     추천<small>[[${view.boardLikeCount}]]</small></p></small>
                 </div>
             </div>
-            <a id="goTopLink" class="btn btn-outline-warning btn-sm" role="button" href="#"><i class="fa fa-angle-double-up"></i></a>
-            <a id="goReply" class="btn btn-outline-warning btn-sm" role="button" href="#commentsIcon"><i class="far fa-comments"></i></a>
+            <a id="goTopLink" class="btn btn-outline-warning btn-sm" role="button" href="#"><i
+                    class="fa fa-angle-double-up"></i></a>
+            <a id="goReply" class="btn btn-outline-warning btn-sm" role="button" href="#commentsIcon"><i
+                    class="far fa-comments"></i></a>
 
-            <i id="commentsIcon" class='far fa-comments' ></i><small>[[${view.replyCount}]]개의 댓글이 달렸습니다.</small>
+            <i id="commentsIcon" class='far fa-comments'></i><small>[[${view.replyCount}]]개의 댓글이 달렸습니다.</small>
             <div id="replyDiv">
 
             </div>
@@ -53,7 +56,7 @@
             <div sec:authorize="isAuthenticated()">
                 <p>댓글 작성</p>
                 <div>
-                <textarea rows="3" cols="30" class="form-control" id="inputReply"></textarea>
+                    <textarea rows="3" cols="30" class="form-control" id="inputReply"></textarea>
                     <button class="btn btn-primary btn-sm float-right btn-sm" id="addReply">작성
                     </button>
                 </div>
@@ -93,7 +96,7 @@
                     if (checkAuthentication === true || checkAdmin == true) {
                         str += "<a id='replyDeleteLink' href='" + replyList.id + "'><small>삭제</small></a>";
                     }
-                        str += "</div>" +
+                    str += "</div>" +
                         "<div id='replyContentDiv'><textarea id='replyContent' rows='2' class='form-control' readonly = readonly>" + replyList.content + "</textarea></div><br>";
                 }
                 $("#replyDiv").html(str);
@@ -106,11 +109,11 @@
                 $("#inputReply").val("");
             });
 
-            $(document).on('click','#replyDeleteLink',function (e){
+            $(document).on('click', '#replyDeleteLink', function (e) {
                 e.preventDefault();
                 var replyId = $(this).attr('href');
-                obj = {boardId : boardId , replyId : replyId};
-                replyManager.remove(obj,printList);
+                obj = {boardId: boardId, replyId: replyId};
+                replyManager.remove(obj, printList);
             });
 
             $(document).on('click', '#thumbs-up-icon', function (e) {
@@ -133,18 +136,17 @@
             });
 
 
-
-            $(document).on('click','#updateBtn',function (e){
+            $(document).on('click', '#updateBtn', function (e) {
                 var msg = confirm('수정하시겠습니까?');
                 if (msg) {
                     $('#form').attr('action', 'update');
-                    $('#form').attr('method','get')
+                    $('#form').attr('method', 'get')
                     form.append("<input type='hidden' name='boardId' value='" + boardId + "'>");
                     form.submit();
                 }
             });
 
-            $(document).on('click','#deleteBtn',function (e){
+            $(document).on('click', '#deleteBtn', function (e) {
                 var msg = confirm('삭제하시겠습니까?');
                 if (msg) {
                     $('#form').attr('action', 'remove');

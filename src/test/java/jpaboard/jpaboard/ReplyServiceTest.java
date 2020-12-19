@@ -29,36 +29,21 @@ public class ReplyServiceTest {
     public ReplyService replyService;
 
     @Test
-    public void makeReply (){
-    //given
+    public void makeReply() {
+        //given
         Reply reply = Reply.createReply()
                 .content("리플")
                 .createDate(LocalDateTime.now())
                 .build();
-    //when
-        Long replyId = replyService.addReply(reply,"관리자",200L);
+        //when
+        Long replyId = replyService.addReply(reply, "관리자", 200L);
         ReplyResponseDto getReply = replyService.findOne(replyId);
-    //then
-        assertEquals(reply.getCreateDate(),getReply.getCreateDate());
+        //then
+        assertEquals(reply.getCreateDate(), getReply.getCreateDate());
         System.out.println(getReply.getContent());
         System.out.println(getReply.getUserName());
 
     }
 
-    @Test
-    public void replyList (){
-    //given
-        for (int i = 0; i < 5; i++) {
-            Reply reply = Reply.createReply()
-                    .content("리플"+i)
-                    .createDate(LocalDateTime.now())
-                    .build();
-            replyService.addReply(reply,"오이",200L);
-        }
-    //when
-        List<ReplyResponseDto> list = replyService.findAll(200L);
-    //then
-        assertEquals(5,list.size());
 
-    }
 }

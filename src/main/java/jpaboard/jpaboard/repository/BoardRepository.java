@@ -16,41 +16,41 @@ import java.util.List;
 public class BoardRepository {
     private final EntityManager em;
 
-    public void save(Board board){
+    public void save(Board board) {
         em.persist(board);
     }
 
-    public void remove(Board board){
+    public void remove(Board board) {
         em.remove(board);
     }
 
-    public Board findOne(Long id){
-        return em.find(Board.class,id);
+    public Board findOne(Long id) {
+        return em.find(Board.class, id);
     }
 
-    public List<Board> findAll(PageRequestDto pageRequestDto){
-        TypedQuery <Board> query = em.createQuery("select b from Board b order by b.id desc",Board.class);
-        query.setFirstResult((pageRequestDto.getPage()-1)*10);
+    public List<Board> findAll(PageRequestDto pageRequestDto) {
+        TypedQuery<Board> query = em.createQuery("select b from Board b order by b.id desc", Board.class);
+        query.setFirstResult((pageRequestDto.getPage() - 1) * 10);
         query.setMaxResults(pageRequestDto.getSize());
         return query.getResultList();
     }
 
-    public List<Board> findAllByLike(PageRequestDto pageRequestDto){
-        TypedQuery <Board> query = em.createQuery("select b from Board b where b.boardLikes.size>1 order by b.id desc",Board.class);
-        query.setFirstResult((pageRequestDto.getPage()-1)*10);
+    public List<Board> findAllByLike(PageRequestDto pageRequestDto) {
+        TypedQuery<Board> query = em.createQuery("select b from Board b where b.boardLikes.size>1 order by b.id desc", Board.class);
+        query.setFirstResult((pageRequestDto.getPage() - 1) * 10);
         query.setMaxResults(pageRequestDto.getSize());
         return query.getResultList();
     }
 
 
-    public int countBoard(){
+    public int countBoard() {
         Query query = em.createQuery("select count(b.id) as cnt from Board b");
         int count = Integer.parseInt(query.getSingleResult().toString());
         return count;
     }
 
 
-    public int countBestBoard(){
+    public int countBestBoard() {
         Query query = em.createQuery("select count(b.id) as cnt from Board b where b.boardLikes.size>1");
         int count = Integer.parseInt(query.getSingleResult().toString());
         return count;

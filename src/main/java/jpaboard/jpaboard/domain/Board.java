@@ -45,9 +45,9 @@ public class Board {
         member.getBoards().add(this);
     }
 
-    public void changeText(String title, String content){
-        this.title=title;
-        this.content=content;
+    public void changeText(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
     @Builder(builderClassName = "makeBoard", builderMethodName = "makeBoard")

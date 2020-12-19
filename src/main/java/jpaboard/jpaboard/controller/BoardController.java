@@ -25,24 +25,24 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/home")
-    public String home(Model model, PageRequestDto pageRequestDto){
-        model.addAttribute("list",boardService.findAll(pageRequestDto));
+    public String home(Model model, PageRequestDto pageRequestDto) {
+        model.addAttribute("list", boardService.findAll(pageRequestDto));
         model.addAttribute("vo", boardService.makePage(pageRequestDto));
         return "/boards/home";
     }
 
-    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/new")
-    public String uploadForm(Model model){
+    public String uploadForm(Model model) {
         model.addAttribute("uploadForm", new BoardRequestDto());
         return "/boards/uploadBoard";
     }
 
-    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @PostMapping("/new")
-    public String upload(Model model, @Valid BoardRequestDto boardRequestDto, BindingResult result){
-        if(result.hasErrors()){
-            model.addAttribute("uploadForm",boardRequestDto);
+    public String upload(Model model, @Valid BoardRequestDto boardRequestDto, BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("uploadForm", boardRequestDto);
             return "/boards/uploadBoard";
         }
         Board board = boardRequestDto.toEntity(boardRequestDto);
@@ -51,42 +51,40 @@ public class BoardController {
     }
 
     @GetMapping("/view")
-    public String viewBoard(Model model,Long boardId){
+    public String viewBoard(Model model, Long boardId) {
         boardService.addReadCount(boardId);
-        model.addAttribute("view",boardService.findOne(boardId));
+        model.addAttribute("view", boardService.findOne(boardId));
         return "/boards/view";
     }
 
-    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/update")
-    public String updateForm(Model model,Long boardId){
-        model.addAttribute("view",boardService.findOne(boardId));
+    public String updateForm(Model model, Long boardId) {
+        model.addAttribute("view", boardService.findOne(boardId));
         return "/boards/updateBoard";
     }
 
-    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @PutMapping("/update")
-    public String updateBoard(BoardRequestDto boardRequestDto , RedirectAttributes rt){
+    public String updateBoard(BoardRequestDto boardRequestDto, RedirectAttributes rt) {
         boardService.updateBoard(boardRequestDto);
-        rt.addAttribute("boardId",boardRequestDto.getBoardId());
+        rt.addAttribute("boardId", boardRequestDto.getBoardId());
         return "redirect:/boards/view";
     }
 
-    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @DeleteMapping("/remove")
-    public String removeBoard(Long boardId){
+    public String removeBoard(Long boardId) {
         boardService.removeBoard(boardId);
         return "redirect:/boards/home";
     }
 
     @GetMapping("/best_home")
-    public String bestHome(Model model, PageRequestDto pageRequestDto){
-        model.addAttribute("list",boardService.findAllByLike(pageRequestDto));
+    public String bestHome(Model model, PageRequestDto pageRequestDto) {
+        model.addAttribute("list", boardService.findAllByLike(pageRequestDto));
         model.addAttribute("vo", boardService.makePageByBest(pageRequestDto));
         return "/boards/home";
     }
-
-
 
 
 }

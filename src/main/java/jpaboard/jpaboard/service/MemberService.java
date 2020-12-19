@@ -16,7 +16,7 @@ import java.util.List;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public Long join(Member member){
+    public Long join(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();
@@ -24,17 +24,17 @@ public class MemberService {
 
     private void validateDuplicateMember(Member member) {
         List<Member> members = memberRepository.findByName(member.getUserName());
-        if(!members.isEmpty()){
+        if (!members.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
 
     }
 
-    public Member findOne(Long id){
+    public Member findOne(Long id) {
         return memberRepository.findOne(id);
     }
 
-    public List<Member> findAll(){
+    public List<Member> findAll() {
         return memberRepository.findAll();
     }
 

@@ -25,7 +25,7 @@ public class BoardService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long upload(Board board,String userName){
+    public Long upload(Board board, String userName) {
         Long memberId = memberRepository.getIdByName(userName);
         Member member = memberRepository.findOne(memberId);
         board.setMember(member);
@@ -34,33 +34,35 @@ public class BoardService {
     }
 
     @Transactional
-    public void removeBoard(Long boardId){
+    public void removeBoard(Long boardId) {
         Board board = boardRepository.findOne(boardId);
         boardRepository.remove(board);
     }
 
     @Transactional
-    public void updateBoard(BoardRequestDto boardRequestDto){
+    public void updateBoard(BoardRequestDto boardRequestDto) {
         Board board = boardRepository.findOne(boardRequestDto.getBoardId());
         board.changeText(boardRequestDto.getTitle(), boardRequestDto.getContent());
 
     }
 
-    public PageMaker makePage(PageRequestDto pageRequestDto){
+    public PageMaker makePage(PageRequestDto pageRequestDto) {
         PageMaker pageMaker = new PageMaker(pageRequestDto, boardRepository.countBoard());
         return pageMaker;
     }
-    public PageMaker makePageByBest(PageRequestDto pageRequestDto){
+
+    public PageMaker makePageByBest(PageRequestDto pageRequestDto) {
         PageMaker pageMaker = new PageMaker(pageRequestDto, boardRepository.countBestBoard());
         return pageMaker;
     }
-    public BoardResponseDto findOne(Long id){
+
+    public BoardResponseDto findOne(Long id) {
         Board board = boardRepository.findOne(id);
         BoardResponseDto responseDto = new BoardResponseDto(board);
         return responseDto;
     }
 
-    public List<BoardResponseDto> findAll(PageRequestDto pageRequestDto){
+    public List<BoardResponseDto> findAll(PageRequestDto pageRequestDto) {
         List<Board> boardList = boardRepository.findAll(pageRequestDto);
 
         List<BoardResponseDto> list = boardList.stream()
@@ -70,7 +72,7 @@ public class BoardService {
         return list;
     }
 
-    public List<BoardResponseDto> findAllByLike(PageRequestDto pageRequestDto){
+    public List<BoardResponseDto> findAllByLike(PageRequestDto pageRequestDto) {
         List<Board> boardList = boardRepository.findAllByLike(pageRequestDto);
         List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
 

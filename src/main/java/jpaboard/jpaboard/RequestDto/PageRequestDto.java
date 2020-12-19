@@ -12,21 +12,18 @@ public class PageRequestDto {
     private int page;
     private int size;
 
-    public PageRequestDto(){
-        page=1;
-        size=default_size;
+    public PageRequestDto() {
+        page = 1;
+        size = default_size;
     }
 
-    public void setPage ( int page ){
-        this.page = page<=0 ? 1 : page;
+    public void setPage(int page) {
+        this.page = page <= 0 ? 1 : page;
     }
 
-    public void setSize( int size ){
-        this.size = size<default_size || size>default_max_size ? default_size : size;
+    public void setSize(int size) {
+        this.size = size < default_size || size > default_max_size ? default_size : size;
     }
-
-
-
 
 
 }

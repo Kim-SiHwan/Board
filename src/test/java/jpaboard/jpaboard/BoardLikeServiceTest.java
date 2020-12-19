@@ -29,5 +29,4 @@ public class BoardLikeServiceTest {
     private LikeService boardLikeService;
 
 
-
 }

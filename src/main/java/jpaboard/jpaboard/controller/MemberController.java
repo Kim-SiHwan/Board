@@ -25,20 +25,21 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder pwEncoder;
+
     @GetMapping("/join")
-    public String joinForm(Model model){
-        MemberRequestDto memberRequestDto= new MemberRequestDto();
-        model.addAttribute("memberForm",memberRequestDto);
+    public String joinForm(Model model) {
+        MemberRequestDto memberRequestDto = new MemberRequestDto();
+        model.addAttribute("memberForm", memberRequestDto);
         return "members/createMember";
     }
 
     @PostMapping("/join")
-    public String join(@Valid MemberRequestDto memberRequestDto, BindingResult result,Model model){
-        model.addAttribute("memberForm",memberRequestDto);
-        if(result.hasErrors()){
+    public String join(@Valid MemberRequestDto memberRequestDto, BindingResult result, Model model) {
+        model.addAttribute("memberForm", memberRequestDto);
+        if (result.hasErrors()) {
             return "members/createMember";
         }
-        System.out.println("pwpw:"+memberRequestDto.getPassword());
+        System.out.println("pwpw:" + memberRequestDto.getPassword());
 
         Member member = memberRequestDto.toEntity(memberRequestDto, pwEncoder);
         memberService.join(member);

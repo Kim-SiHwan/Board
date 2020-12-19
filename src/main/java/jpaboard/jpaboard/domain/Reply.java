@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@ToString(exclude = {"member","board"})
+@ToString(exclude = {"member", "board"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reply {
     @Id
@@ -42,8 +42,8 @@ public class Reply {
         this.createDate = createDate;
     }
 
-    public void setMember(Member member){
-        this.member=member;
+    public void setMember(Member member) {
+        this.member = member;
         this.member.getReplies().add(this);
     }
 

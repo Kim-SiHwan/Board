@@ -22,23 +22,23 @@ public class MemberServiceTest {
     private MemberService memberService;
 
     @Test
-    public void joinTest (){
-    //given
-        Member member= Member.createMember()
+    public void joinTest() {
+        //given
+        Member member = Member.createMember()
                 .userName("오이")
-                .address(new Address("감자","고구마","가지"))
+                .address(new Address("감자", "고구마", "가지"))
                 .role("USER")
                 .build();
         memberService.join(member);
-    //when
+        //when
         Member getMember = memberService.findOne(member.getId());
-    //then
-        assertEquals(member,getMember);
+        //then
+        assertEquals(member, getMember);
     }
 
     @Test(expected = IllegalStateException.class)
-    public void joinDuplicateTest (){
-    //given
+    public void joinDuplicateTest() {
+        //given
         Member member = Member.createMember()
                 .userName("오이")
                 .role("USER")
@@ -47,28 +47,28 @@ public class MemberServiceTest {
                 .userName("오이")
                 .role("USER")
                 .build();
-    //when
+        //when
         memberService.join(member);
         memberService.join(member1);
-    //then
+        //then
         fail("IllegalStateException 발생해야함.");
     }
 
     @Test
-    public void memberListTest (){
-    //given
+    public void memberListTest() {
+        //given
         for (int i = 0; i < 10; i++) {
             Member member = Member.createMember()
-                    .userName("오이"+i)
-                    .address(new Address("감자"+i,"고구마"+i,"가지"+i))
+                    .userName("오이" + i)
+                    .address(new Address("감자" + i, "고구마" + i, "가지" + i))
                     .role("USER")
                     .build();
             memberService.join(member);
         }
-    //when
+        //when
         List<Member> list = memberService.findAll();
-    //then
-        assertEquals(10,list.size());
+        //then
+        assertEquals(10, list.size());
 
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i).getUserName());

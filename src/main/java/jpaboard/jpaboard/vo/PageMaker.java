@@ -18,36 +18,36 @@ public class PageMaker {
     private List<Integer> pageList;
 
     public PageMaker(PageRequestDto pageRequestDto, int totalBoard) {
-        this.currentPage=pageRequestDto.getPage();
-        this.prevPage=0;
-        this.nextPage=1;
+        this.currentPage = pageRequestDto.getPage();
+        this.prevPage = 0;
+        this.nextPage = 1;
         this.pageList = new ArrayList<>();
-        setTotalPage(totalBoard,pageRequestDto.getSize());
+        setTotalPage(totalBoard, pageRequestDto.getSize());
         calcPages();
     }
 
     public void setTotalPage(int totalBoard, int size) {
-        totalPage = totalBoard/size;
+        totalPage = totalBoard / size;
         if (totalBoard > size * totalPage) {
             totalPage++;
         }
     }
 
-    public void calcPages(){
-        int tempEnd = (int) (Math.ceil(this.currentPage/10.0)*10);
-        int startNum = tempEnd-9;
-        tempStartNum=startNum;
-        for(int i=startNum; i<=this.currentPage; i++){
-            tempStartNum-=1;
+    public void calcPages() {
+        int tempEnd = (int) (Math.ceil(this.currentPage / 10.0) * 10);
+        int startNum = tempEnd - 9;
+        tempStartNum = startNum;
+        for (int i = startNum; i <= this.currentPage; i++) {
+            tempStartNum -= 1;
         }
-        this.prevPage = tempStartNum<=0 ? 0 : 1;
-        tempStartNum = tempStartNum<=0 ?1 : tempStartNum;
-        if(this.totalPage<tempEnd){
-            nextPage=0;
-            tempEnd=this.totalPage;
+        this.prevPage = tempStartNum <= 0 ? 0 : 1;
+        tempStartNum = tempStartNum <= 0 ? 1 : tempStartNum;
+        if (this.totalPage < tempEnd) {
+            nextPage = 0;
+            tempEnd = this.totalPage;
         }
-        tempEndNum=tempEnd+1;
-        for(int i=startNum; i<=tempEnd; i++){
+        tempEndNum = tempEnd + 1;
+        for (int i = startNum; i <= tempEnd; i++) {
             pageList.add(i);
         }
     }

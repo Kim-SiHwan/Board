@@ -26,10 +26,10 @@ public class MemberRequestDto {
     private String role;
     private String password;
 
-    public Member toEntity(MemberRequestDto memberRequestDto , PasswordEncoder pwEncoder){
+    public Member toEntity(MemberRequestDto memberRequestDto, PasswordEncoder pwEncoder) {
         return Member.createMember()
                 .userName(memberRequestDto.getUserName())
-                .address(new Address(memberRequestDto.getCity(),memberRequestDto.getStreet(),memberRequestDto.getZipcode()))
+                .address(new Address(memberRequestDto.getCity(), memberRequestDto.getStreet(), memberRequestDto.getZipcode()))
                 .joinDate(LocalDateTime.now())
                 .role("USER")
                 .password(pwEncoder.encode(memberRequestDto.getPassword()))

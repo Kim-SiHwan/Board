@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/boards/home").permitAll()
                 .antMatchers("/boards/view").permitAll()
-                .antMatchers("/boards/uploadBoard").hasAnyRole("ADMIN","USER")
+                .antMatchers("/boards/uploadBoard").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/boards/updateBoard").hasAnyRole("ADMIN,USER")
                 .antMatchers("/h2/*").permitAll()
                 .antMatchers("/replies/**").permitAll();

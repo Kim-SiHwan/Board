@@ -16,17 +16,17 @@ public class ReplyResponseDto {
     private LocalDateTime createDate;
     private int replyLikeCount;
 
-    public ReplyResponseDto(Reply reply){
-        this.id= reply.getId();
-        this.userName=reply.getMember().getUserName();
-        this.content= reply.getContent();
-        this.createDate=reply.getCreateDate();
-        this.replyLikeCount=reply.getReplyLikes().size();
+    public ReplyResponseDto(Reply reply) {
+        this.id = reply.getId();
+        this.userName = reply.getMember().getUserName();
+        this.content = reply.getContent();
+        this.createDate = reply.getCreateDate();
+        this.replyLikeCount = reply.getReplyLikes().size();
     }
 
     @Data
     @AllArgsConstructor
-    public static class Result <T>{
+    public static class Result<T> {
         private T data;
 
     }

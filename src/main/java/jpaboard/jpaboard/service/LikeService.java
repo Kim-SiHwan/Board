@@ -28,7 +28,7 @@ public class LikeService {
                 boardLike.setMember(member);
                 boardLike.setBoard(board);
                 boardLikeRepository.save(boardLike);
-            }else{
+            } else {
                 Reply reply = replyRepository.findOne(id);
                 ReplyLike replyLike = new ReplyLike();
                 replyLike.setMember(member);
@@ -37,10 +37,10 @@ public class LikeService {
             }
             msg = "추천완료";
         } else {
-            if(type.equals("board")) {
+            if (type.equals("board")) {
                 BoardLike boardLike = boardLikeRepository.findByAllId(memberId, id);
                 boardLikeRepository.remove(boardLike);
-            }else{
+            } else {
                 ReplyLike replyLike = replyLikeRepository.findByAllId(memberId, id);
                 replyLikeRepository.remove(replyLike);
             }

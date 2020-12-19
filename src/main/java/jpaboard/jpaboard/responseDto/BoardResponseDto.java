@@ -22,8 +22,8 @@ public class BoardResponseDto {
         this.content = board.getContent();
         this.createDate = board.getCreateDate();
         this.userName = board.getMember().getUserName();
-        this.read= board.getRead();
-        this.replyCount=board.getReplies().size();
-        this.boardLikeCount= board.getBoardLikes().size();
+        this.read = board.getRead();
+        this.replyCount = board.getReplies().size();
+        this.boardLikeCount = board.getBoardLikes().size();
     }
 }

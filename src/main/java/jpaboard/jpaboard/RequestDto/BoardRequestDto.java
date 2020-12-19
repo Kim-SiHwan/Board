@@ -21,7 +21,7 @@ public class BoardRequestDto {
     private String title;
 
     @NotEmpty(message = "내용을 입력해주세요.")
-    @Size(min = 1 , message = "1자이상 입력해주세요.")
+    @Size(min = 1, message = "1자이상 입력해주세요.")
     private String content;
 
     private LocalDateTime createDate;
@@ -32,7 +32,7 @@ public class BoardRequestDto {
 
     private List<Reply> replies = new ArrayList<>();
 
-    public Board toEntity(BoardRequestDto boardRequestDto){
+    public Board toEntity(BoardRequestDto boardRequestDto) {
         return Board.makeBoard()
                 .id(boardRequestDto.getBoardId())
                 .title(boardRequestDto.getTitle())
@@ -41,17 +41,6 @@ public class BoardRequestDto {
                 .read(0)
                 .build();
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

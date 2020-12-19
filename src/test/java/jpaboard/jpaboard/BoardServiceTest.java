@@ -35,84 +35,85 @@ public class BoardServiceTest {
     private BoardRepository boardRepository;
 
     @Test
-    public void makeBoardTest (){
-    //given
+    public void makeBoardTest() {
+        //given
         Member member = createMember();
         memberService.join(member);
-    //when
+        //when
         Board board = makeBoard();
         boardService.upload(board, member.getUserName());
 
         Board getBoard = boardRepository.findOne(board.getId());
-    //then
+        //then
 
-        assertEquals(board,getBoard);
+        assertEquals(board, getBoard);
         System.out.println(board.getMember().getUserName());
     }
 
     @Test
-    public void removeBoard (){
-    //given
+    public void removeBoard() {
+        //given
         Member member = createMember();
         memberService.join(member);
-        Board board=makeBoard();
+        Board board = makeBoard();
         boardService.upload(board, member.getUserName());
-    //when
+        //when
         System.out.println(board.getTitle());
         boardService.removeBoard(board.getId());
-    //then
+        //then
         System.out.println(board.getTitle());
 
     }
 
     @Test
-    public void pagingTest (){
-    //given
+    public void pagingTest() {
+        //given
         //data.sql 더미 데이터  존재 page 초기 값 0. size 초기 값 10
         PageRequestDto pageRequestDto = new PageRequestDto();
-    //when
+        //when
         List<Board> list = boardRepository.findAll(pageRequestDto);
         int totalPage = boardRepository.countBoard();
-    //then
-        assertEquals(10,list.size());
-        for(int i=0; i<list.size(); i++){
+        //then
+        assertEquals(10, list.size());
+        for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i).getTitle());
         }
     }
+
     @Test
-    public void updateBoard (){
-    //given
-        Board board= boardRepository.findOne(200L);
-    //when
+    public void updateBoard() {
+        //given
+        Board board = boardRepository.findOne(200L);
+        //when
 
         BoardRequestDto boardRequestDto = new BoardRequestDto();
         boardRequestDto.setBoardId(200L);
         boardRequestDto.setTitle("update");
         boardRequestDto.setContent("updateContent");
         boardService.updateBoard(boardRequestDto);
-    //then
-        assertEquals("update",board.getTitle());
-        assertEquals("updateContent",board.getContent());
+        //then
+        assertEquals("update", board.getTitle());
+        assertEquals("updateContent", board.getContent());
 
     }
 
     @Test
-    public void makeDataSql (){
-        for(int i=1; i<=50; i++){
-            System.out.println("insert into board (member_id , title, content ,likes , read , create_date ) values (1 , '오이"+i+"T', '오이"+i+"C', 0, 0 ,now() );");
-            System.out.println("insert into board (member_id , title, content ,likes , read , create_date ) values (2 , '가지"+i+"T', '가지"+i+"C', 0, 0 ,now() );");
+    public void makeDataSql() {
+        for (int i = 1; i <= 50; i++) {
+            System.out.println("insert into board (member_id , title, content ,likes , read , create_date ) values (1 , '오이" + i + "T', '오이" + i + "C', 0, 0 ,now() );");
+            System.out.println("insert into board (member_id , title, content ,likes , read , create_date ) values (2 , '가지" + i + "T', '가지" + i + "C', 0, 0 ,now() );");
         }
     }
 
-    public Member createMember(){
-        return  Member.createMember()
+    public Member createMember() {
+        return Member.createMember()
                 .userName("오잇")
-                .address(new Address("감자","고구마","가지"))
+                .address(new Address("감자", "고구마", "가지"))
                 .role("USER")
                 .build();
     }
 
-    public Board makeBoard(){
+    public Board makeBoard() {
         return Board.makeBoard()
                 .read(0)
                 .title("오이T")

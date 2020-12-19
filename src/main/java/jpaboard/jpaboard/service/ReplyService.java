@@ -24,10 +24,10 @@ public class ReplyService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long addReply(Reply reply,String userName,Long boardId){
+    public Long addReply(Reply reply, String userName, Long boardId) {
         Long memberId = memberRepository.getIdByName(userName);
-        Member member= memberRepository.findOne(memberId);
-        Board board= boardRepository.findOne(boardId);
+        Member member = memberRepository.findOne(memberId);
+        Board board = boardRepository.findOne(boardId);
         reply.setMember(member);
         reply.setBoard(board);
         replyRepository.save(reply);
@@ -35,18 +35,18 @@ public class ReplyService {
     }
 
     @Transactional
-    public void removeReply(Long replyId){
+    public void removeReply(Long replyId) {
         Reply reply = replyRepository.findOne(replyId);
         replyRepository.remove(reply);
     }
 
-    public ReplyResponseDto findOne(Long id){
+    public ReplyResponseDto findOne(Long id) {
         Reply reply = replyRepository.findOne(id);
         ReplyResponseDto replyResponseDto = new ReplyResponseDto(reply);
         return replyResponseDto;
     }
 
-    public ReplyResponseDto.Result findAll(Long boardId){
+    public ReplyResponseDto.Result findAll(Long boardId) {
         List<Reply> replyList = replyRepository.findAll(boardId);
 
         List<ReplyResponseDto> list = replyList.stream()
