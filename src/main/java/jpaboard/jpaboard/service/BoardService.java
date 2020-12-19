@@ -1,7 +1,7 @@
 package jpaboard.jpaboard.service;
 
-import jpaboard.jpaboard.RequestDto.BoardRequestDto;
-import jpaboard.jpaboard.RequestDto.PageRequestDto;
+import jpaboard.jpaboard.requestDto.BoardRequestDto;
+import jpaboard.jpaboard.requestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.repository.BoardRepository;
@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service

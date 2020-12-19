@@ -1,13 +1,12 @@
 package jpaboard.jpaboard;
 
 
-import jpaboard.jpaboard.RequestDto.BoardRequestDto;
-import jpaboard.jpaboard.RequestDto.PageRequestDto;
+import jpaboard.jpaboard.requestDto.BoardRequestDto;
+import jpaboard.jpaboard.requestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Address;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.repository.BoardRepository;
-import jpaboard.jpaboard.responseDto.BoardResponseDto;
 import jpaboard.jpaboard.service.BoardService;
 import jpaboard.jpaboard.service.MemberService;
 import org.junit.Test;

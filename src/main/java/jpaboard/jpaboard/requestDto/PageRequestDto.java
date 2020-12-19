@@ -1,4 +1,4 @@
-package jpaboard.jpaboard.RequestDto;
+package jpaboard.jpaboard.requestDto;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

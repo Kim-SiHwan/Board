@@ -1,6 +1,6 @@
 package jpaboard.jpaboard.vo;
 
-import jpaboard.jpaboard.RequestDto.PageRequestDto;
+import jpaboard.jpaboard.requestDto.PageRequestDto;
 import lombok.Getter;
 
 import java.util.ArrayList;

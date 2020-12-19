@@ -1,6 +1,6 @@
 package jpaboard.jpaboard.controller;
 
-import jpaboard.jpaboard.RequestDto.ReplyRequestDto;
+import jpaboard.jpaboard.requestDto.ReplyRequestDto;
 import jpaboard.jpaboard.responseDto.ReplyResponseDto;
 import jpaboard.jpaboard.service.ReplyService;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController

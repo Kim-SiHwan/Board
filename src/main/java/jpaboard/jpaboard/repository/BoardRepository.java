@@ -1,7 +1,6 @@
 package jpaboard.jpaboard.repository;
 
-import jpaboard.jpaboard.RequestDto.BoardRequestDto;
-import jpaboard.jpaboard.RequestDto.PageRequestDto;
+import jpaboard.jpaboard.requestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

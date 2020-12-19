@@ -1,6 +1,6 @@
 package jpaboard.jpaboard.controller;
 
-import jpaboard.jpaboard.RequestDto.MemberRequestDto;
+import jpaboard.jpaboard.requestDto.MemberRequestDto;
 import jpaboard.jpaboard.domain.Member;
 import jpaboard.jpaboard.service.MemberService;
 import lombok.RequiredArgsConstructor;

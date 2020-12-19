@@ -1,10 +1,9 @@
 package jpaboard.jpaboard.controller;
 
-import jpaboard.jpaboard.RequestDto.BoardRequestDto;
-import jpaboard.jpaboard.RequestDto.PageRequestDto;
+import jpaboard.jpaboard.requestDto.BoardRequestDto;
+import jpaboard.jpaboard.requestDto.PageRequestDto;
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.service.BoardService;
-import jpaboard.jpaboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;

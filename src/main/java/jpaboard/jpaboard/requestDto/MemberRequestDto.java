@@ -1,9 +1,8 @@
-package jpaboard.jpaboard.RequestDto;
+package jpaboard.jpaboard.requestDto;
 
 import jpaboard.jpaboard.domain.Address;
 import jpaboard.jpaboard.domain.Member;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

@@ -1,4 +1,4 @@
-package jpaboard.jpaboard.RequestDto;
+package jpaboard.jpaboard.requestDto;
 
 import jpaboard.jpaboard.domain.Board;
 import jpaboard.jpaboard.domain.Reply;
