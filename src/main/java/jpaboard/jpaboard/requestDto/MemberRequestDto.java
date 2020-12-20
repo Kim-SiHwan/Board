@@ -23,6 +23,7 @@ public class MemberRequestDto {
     private String street;
     private String zipcode;
     private String role;
+    @NotEmpty(message = "비밀번호를 입력해주세요.")
     private String password;
 
     public Member toEntity(MemberRequestDto memberRequestDto, PasswordEncoder pwEncoder) {
