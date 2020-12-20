@@ -80,6 +80,12 @@ public class AppRunnerConfig implements ApplicationRunner {
             }
 
         }
+        for(int i=1; i<=200; i++){
+            int r= (int)(Math.random()*200)+1;
+            String name = (i%2==0)?"오이":"배추";
+            likeService.addLike(name,Long.parseLong(r+""),"board");
+            likeService.addLike("관리자",Long.parseLong(i+""),"board");
+        }
         likeService.addLike("오이", 200L, "board");
         likeService.addLike("배추", 200L, "board");
         likeService.addLike("관리자", 200L, "board");
